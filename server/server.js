@@ -6,7 +6,7 @@ var cors = require('cors');
 
 var food = require('./routes/food');
 
-mongoose.connect('mongodb://localhost/food')
+// mongoose.connect('mongodb://localhost/food')
 
 
 
