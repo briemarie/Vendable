@@ -41,13 +41,7 @@
 
         <ion-side-menu side="left">
           <ion-list>
-            <ion-item>List 1 <button>Delete</button></ion-item>
-          </ion-list>
-          <ion-list>
-            <ion-item>List 2 <button>Delete</button></ion-item>
-          </ion-list>
-          <ion-list>
-            <ion-item>List 3 <button>Delete</button></ion-item>
+            <ion-item ng-repeat="lists">{{list}} <button class="button">Delete</button></ion-item>
           </ion-list>
         </ion-side-menu>
        </ion-side-menus>
@@ -66,26 +60,25 @@
 
 <!--below is the search template-->
 <script id="search-item-modal.html" type="text/ng-template">
-<div class="modal">
-  <ion-header-bar class="bar-calm">
-    <h1 class="title">Search some fool</h1>
-    <button class="button" ng-click="closeSearchModal()">Close</button>
-  </ion-header-bar>
+  <div class="modal">
+    <ion-header-bar class="bar-calm">
+      <h1 class="title">Search some food</h1>
+      <button class="button" ng-click="closeSearchModal()">Close</button>
+    </ion-header-bar>
 
-  <ion-content>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="search" ng-model="data.keyWord" ng-change="scan()">
-      </label>
-    </div>
+    <ion-content>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" ng-model="data.keyWord" ng-change="scan()">
+        </label>
+      </div>
 
-    <ion-list>
-          <ion-item ng-repeat="item in items">
-            <button type="submit" class="button button-block button-positive" ng-click="addItem(item.type[0])">{{item.type[0]}}</button>
-          </ion-item>
-    </ion-list>
-  </ion-content>
-</div>
+      <ion-list>
+            <ion-item ng-repeat="item in items">
+              <button type="submit" class="button button-block button-positive" ng-click="addItem(item.type[0])">{{item.type[0]}}</button>
+            </ion-item>
+      </ion-list>
+    </ion-content>
+  </div>
 </script>
-
