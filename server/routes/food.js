@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var foods = require('../models/foods.js');
+var newStores = [];
 
 // contact yelp:
 var yelp = require("yelp").createClient({
@@ -25,32 +26,34 @@ router.get('/:letter', function(req, res, next) {
 
 router.get('/yelp/:userInfo', function(req, res, next) {
 
-  var posistion = "37.7846064,-122.39755670000001"
+  var posistion = userInfo['posistion'] // "37.7846064,-122.39755670000001"
 
-  var stores = ['safeway', 'costco', 'whole foods']
+  var stores = userInfo['stores'] //['safeway', 'costco', 'whole foods']
 
-  var foundStores = [];
-
-  for(var i = 0; i < stores.length; i++){
-
-    yelp.search({term: stores[i], limit: 1, ll: posistion }, function(error, data) {
-      var name = data['businesses'][0]["name"];
-      var location = data['businesses'][0]["location"]['coordinate'];
-      var foundStore = {name: name, location: location};
-      foundStores.push(foundStore);
-    });
-
-
-  };
-
-      console.log(foundStores);
+  findStoresOnYelp(stores, posistion, res)
 
 });
 
+function findStoresOnYelp(stores, posistion, res){
+  for(var i = 0; i < stores.length; i++){
+    yelp.search({term: stores[i], limit: 1, ll: posistion }, function(error, data) {
+      var name = data['businesses'][0]["name"];
+      var location = data['businesses'][0]["location"]['coordinate'];
+      var newStore = {name: name, location: location};
+      newStores.push(newStore);
+
+      if(newStores.length == stores.length){
+        res.json(newStores);
+      };
+
+    });
+  };
+
+
+};
+
 
 module.exports = router;
-
-
 
 
 
