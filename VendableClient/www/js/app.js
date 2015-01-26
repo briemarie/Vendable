@@ -18,13 +18,46 @@ Vendable.run(function($ionicPlatform) {
   });
 })
 
-Vendable.controller('VendableCtrl',['$scope','$http',function($scope,$http){
-  $scope.data={};
-  $scope.items={};
-  $scope.scan=function(){
-      $http.get('https://sleepy-scrubland-3514.herokuapp.com/food/'+$scope.data.keyWord)
-        .success(function(data){
-          $scope.items=data;
-        });
-  };
+Vendable.controller('VendableCtrl',
+  ['$scope','$http','$ionicModal',
+    function($scope,$http,$ionicModal){
+
+      $scope.basket=[];
+
+      $ionicModal.fromTemplateUrl("search-item-modal.html",{
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal){
+        $scope.modal = modal //This change the modal of the scope
+      });
+
+      $scope.openSearchModal = function(){
+        $scope.modal.show()
+      };
+
+      $scope.closeSearchModal = function(){
+        $scope.modal.hide()
+      }
+
+
+      $scope.data={};
+      $scope.items={};
+
+      $scope.scan=function(){
+          $http.get('https://sleepy-scrubland-3514.herokuapp.com/food/'+$scope.data.keyWord)
+            .success(function(data){
+              $scope.items=data;
+            });
+      };
+
+      $scope.addItem=function(item){
+        $scope.basket.push(item); 
+        console.log(item)
+      }
+
+      $scope.deleteItem=function(item){
+        var idx = $scope.basket.indexOf(item);
+        $scope.basket.splice(idx,1);
+      }
 }]);
+
