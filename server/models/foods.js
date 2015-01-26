@@ -4,8 +4,10 @@ mongoose.connect('mongodb://lancetipton04:tipton55@ds031601.mongolab.com:31601/v
 var Schema = mongoose.Schema;
 
 var foodsSchema = new Schema({
-  type: { type: [String], index: "text" },
-  stores: {}
+  item: String,
+  price: String
 });
 
 module.exports = mongoose.model('foods', foodsSchema);
+
+
