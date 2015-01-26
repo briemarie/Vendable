@@ -1,5 +1,4 @@
 require 'CSV'
-require 'json'
 
 store_hash = {'safeway.csv' => 'safeway', 'costco.csv' => 'costco', 'whole_foods.csv' => 'whole_foods', 'fresh_n_easy.csv' => 'fresh_n_easy'}
 
