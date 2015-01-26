@@ -23,22 +23,22 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 
   $stateProvider.state('home',{
     url: '/',
-    templateUrl: 'template/home.html'
+    templateUrl: 'templates/home.html'
   });
 
   $stateProvider.state('index',{
     url: '/index',
-    templateUrl: 'template/index.html'
+    templateUrl: 'templates/index.html'
   });
 
   $stateProvider.state('new_list', {
     url: '/new_list',
-    templateUrl: 'template/new_list.html'
+    templateUrl: 'templates/new_list.html'
   })
 
   $stateProvider.state('all_list', {
-    url: '/all_list',
-    templateUrl: 'template/all_list.html'
+    url: '/index',
+    templateUrl: 'templates/index.html'
   })
 
 });
@@ -90,12 +90,13 @@ Vendable.factory('Lists',function(){
     },
 
     getLastActiveList:function(){
+      console.log(parseInt(window.localStorage['lastActiveList']))
       return parseInt(window.localStorage['lastActiveList']) || 0;
       //return index number 0 if no prior active list
     },
 
-    setLastActiveList:function(id){
-      window.localStorage['lastActiveList']=id;
+    setLastActiveList:function(idx){
+      window.localStorage['lastActiveList']=idx;
     }
 
   }
@@ -104,16 +105,18 @@ Vendable.factory('Lists',function(){
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
     function($scope,searchItemsService,Lists,$ionicModal,$ionicSideMenuDelegate){
-
-      $scope.basket=[];
+      console.log($scope.activeList)
+      
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
         var id = function(){
+          console.log($scope.lists.length)
           if($scope.lists.length === 0){
             return 0
-          }
-          return $scope.lists[$scope.lists.length-1].id
+          }else{
+          return $scope.lists[$scope.lists.length-1].id+1
+        }
         };
         var newList=Lists.newList(listName,id());
         $scope.lists.push(newList);
@@ -123,6 +126,8 @@ Vendable.controller('VendableCtrl',
       }
 
       $scope.activeList=$scope.lists[Lists.getLastActiveList()];
+      console.log($scope.activeList);
+
 
       $scope.addList=function(){
         var listName=prompt('Give me a Name');
@@ -147,13 +152,55 @@ Vendable.controller('VendableCtrl',
         $ionicSideMenuDelegate.toggleLeft()
       };
 
-      $ionicModal.fromTemplateUrl("template/search.html",{
+      $ionicModal.fromTemplateUrl("templates/search.html",{
         scope: $scope,
         animation: 'slide-in-up'
       }).then(function(modal){
         $scope.modal = modal //This change the modal of the scope
       });
+//-------------------------------------------
+      // $ionicModal.fromTemplateUrl("templates/map_modal.html", {
+      //    scope: $scope,
+      //    animation: 'slide-in-up'
+      //  }).then(function(modal){
+      //    $scope.modal = modal
+      //  })
 
+       $scope.openMap = function() {
+          $scope.modal.show();
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(drawMap)
+          }
+          else {
+            $('#message').text("Geolocation not supported")
+          }
+        }
+
+        $scope.closeModal = function(){
+          $scope.modal.hide();
+        }
+
+
+        // $scope.getLocation = function() {
+        //   if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(drawMap)
+        //   }
+        //   else {
+        //     $('#message').text("Geolocation not supported")
+        //   }
+        // }
+        var drawMap = function(position){
+          var map = new GMaps({
+            div: '#mapG',
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+          console.log(position.coords.latitude, position.coords.longitude )
+         $http.get('http://192.168.060:3000').success(function(response){
+            console.log(response)
+         })
+        }
+//-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modal.show()
       };
@@ -173,9 +220,10 @@ Vendable.controller('VendableCtrl',
       }
 
       $scope.addItem=function(item){
-        console.log(Lists.getLastActiveList());
-        $scope.lists[Lists.getLastActiveList()].items.push(item); 
-        console.log(item)
+        $scope.activeList.items.push(item)
+
+        console.log($scope.lists);
+        Lists.save($scope.lists);
       }
 
       $scope.deleteItem=function(item){

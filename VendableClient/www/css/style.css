@@ -18,3 +18,8 @@
     background-size: cover;
     position: absolute;
 }
+
+#mapG {
+  height: 500px;
+  width: 100%;
+}

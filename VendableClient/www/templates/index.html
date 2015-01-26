@@ -12,7 +12,7 @@
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
-              <ion-item ng-repeat="shit in basket">
+              <ion-item ng-repeat="shit in activeList.items">
                 {{shit}} <button class="button" ng-click=deleteItem(shit)></button>
               </ion-item>
             </ion-list>
