@@ -60,7 +60,6 @@ Vendable.factory('searchItemsService',function($http){
 Vendable.factory('Lists',function(){
   return{
     all:function(){
-      console.log("shit");
       var listsString=window.localStorage['lists'];
       if(listsString){
         return angular.fromJson(listsString);
@@ -90,7 +89,6 @@ Vendable.factory('Lists',function(){
     },
 
     getLastActiveList:function(){
-      console.log(parseInt(window.localStorage['lastActiveList']))
       return parseInt(window.localStorage['lastActiveList']) || 0;
       //return index number 0 if no prior active list
     },
@@ -233,6 +231,4 @@ Vendable.controller('VendableCtrl',
 }
 // ]
 );
-
-console.log("yeah")
 
