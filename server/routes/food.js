@@ -1,46 +1,61 @@
 var express = require('express');
 var router = express.Router();
-
 var mongoose = require('mongoose');
-var food = require('../models/food.js');
+var foods = require('../models/foods.js');
+var newStores = [];
 
+// contact yelp:
+var yelp = require("yelp").createClient({
+
+});
 
 router.get('/', function(req, res, next) {
-  food.find(function (err, foods) {
-    res.json(foods);
+  foods.find(function (err, allFoods) {
+    res.json(allFoods);
   });
 });
 
+router.get('/:letter', function(req, res, next) {
 
-router.post('/', function(req, res, next) {
-  food.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  foods.find( {"type" : new RegExp('^' + req.params.letter, 'i')}, function (err, food){
+    if (err) return handleError(err);
+    res.json(food);
+  })
+
 });
 
+router.get('/yelp/:userInfo', function(req, res, next) {
 
-router.get('/:id', function(req, res, next) {
-  food.findById(req.params.id, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  var posistion = userInfo['posistion'] // "37.7846064,-122.39755670000001"
+
+  var stores = userInfo['stores'] //['safeway', 'costco', 'whole foods']
+
+  findStoresOnYelp(stores, posistion, res)
+
 });
 
+function findStoresOnYelp(stores, posistion, res){
+  for(var i = 0; i < stores.length; i++){
+    yelp.search({term: stores[i], limit: 1, ll: posistion }, function(error, data) {
+      var name = data['businesses'][0]["name"];
+      var location = data['businesses'][0]["location"]['coordinate'];
+      var newStore = {name: name, location: location};
+      newStores.push(newStore);
 
-router.put('/:id', function(req, res, next) {
-  food.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
+      if(newStores.length == stores.length){
+        res.json(newStores);
+      };
+
+    });
+  };
 
 
-router.delete('/:id', function(req, res, next) {
-  food.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
+};
+
 
 module.exports = router;
+
+
+
+
+

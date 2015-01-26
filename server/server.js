@@ -4,11 +4,9 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var cors = require('cors');
 
+var $ = require('jquery');
+
 var food = require('./routes/food');
-
-mongoose.connect('mongodb://localhost/food')
-
-
 
 var app = express();
 app.use(cors());
