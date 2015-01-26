@@ -18,13 +18,45 @@ Vendable.run(function($ionicPlatform) {
   });
 })
 
-Vendable.controller('VendableCtrl',['$scope','$http',function($scope,$http){
-  $scope.data={};
-  $scope.items={};
-  $scope.scan=function(){
-      $http.get('https://sleepy-scrubland-3514.herokuapp.com/food/'+$scope.data.keyWord)
-        .success(function(data){
-          $scope.items=data;
-        });
-  };
-}]);
+Vendable.controller('VendableCtrl',
+  // ['$scope','$ionicModal','$http',
+  function($scope,$http, $ionicModal){
+
+  $ionicModal.fromTemplateUrl("map-modal.html", {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal){
+    $scope.modal = modal
+  })
+
+  $scope.openMap = function() {
+    $scope.modal.show();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(drawMap)
+    }
+    else {
+      $('#message').text("Geolocation not supported")
+    }
+  }
+
+  $scope.closeModal = function(){
+    $scope.modal.hide();
+  }
+
+  // $scope.getLocation = function() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(drawMap)
+  //   }
+  //   else {
+  //     $('#message').text("Geolocation not supported")
+  //   }
+  // }
+  var drawMap = function(position){
+    new GMaps({
+      div: '#mapG',
+      lat: position.coords.latitude,//parseFloat($('#lat').text()),
+      lng: position.coords.longitude //parseFloat($('#lng').text())
+    });
+  }
+});
+
