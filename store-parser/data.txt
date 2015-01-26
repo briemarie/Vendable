@@ -667,4 +667,3 @@
 {"type"=>"Nature's Path Crunch Cinnamon Sunrise Gluten Free Cereal", "store"=>"fresh_n_easy", "price"=>"4.79"}
 {"type"=>"Foster Farms Frozen Chicken Thighs", "store"=>"fresh_n_easy", "price"=>"6.29"}
 {"type"=>"Tropicana Pure Premium Orange Juice Homestyle Some Pulp", "store"=>"fresh_n_easy", "price"=>"4.79"}
-
