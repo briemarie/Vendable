@@ -56,9 +56,8 @@ store_hash.each do |k, v|
   end
 end
 
- # p giant_array
-
-
+ smaller_giant_array = giant_array.uniq!
+ puts smaller_giant_array
 
 
 
