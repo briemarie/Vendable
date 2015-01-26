@@ -1,0 +1,35 @@
+  
+      <ion-side-menus>
+        <ion-side-menu-content>
+          <ion-header-bar class="bar-calm">
+            <button class="button icon ion-navicon" ng-click="toggleLeft()"></button>
+              <h1 class="title">
+                {{activeList.title}}
+              </h1>
+            <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
+          </ion-header-bar>
+      
+          <ion-content>
+            <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
+            <ion-list>
+              <ion-item ng-repeat="shit in basket">
+                {{shit}} <button class="button" ng-click=deleteItem(shit)></button>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ion-side-menu-content>
+
+        <ion-side-menu side="left">
+           <ion-header-bar class="bar-positive">
+            <button class="button icon" ng-click="addList()">New</button>
+            <h1 class="title">
+                All List
+            </h1>
+          </ion-header-bar>
+          <ion-content>
+          <ion-list>
+            <ion-item ng-repeat="list in lists" ng-click="selectList(list,list.id)">{{list.title}}<button ng-click="deleteList(list)">Delete</button></ion-item>
+          </ion-list>
+        </ion-content>
+        </ion-side-menu>
+      </ion-side-menus>
