@@ -52,28 +52,13 @@ store_hash.each do |k, v|
   end
 
   object.each do |item|
-    new_obj = Hash[ 'type', item[0],  'store', [v, item[1]] ]
+    new_obj = Hash[ 'type', item[0],  'store', v, 'price', item[1] ]
     giant_array.push(new_obj)
   end
 end
 
- p giant_array.length
+ # p giant_array
 
- similar_array = []
-
-giant_array.each do |item|
-
-  giant_array.each do |current_item|
-    if item['type'].downcase.include?(current_item['type'].downcase) && item['store'][0] != current_item['store'][0]
-      similar_array.push(item)
-      similar_array.push(current_item)
-    end
-
-  end
-
-end
-
-p similar_array
 
 
 
