@@ -1,0 +1,10 @@
+2015-01-26 15:43:25.412 Vendable[5154:64399] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/BrieMarie/Library/Developer/CoreSimulator/Devices/FC34AACA-8973-41E9-BA12-DD2DA41EE994/data/Containers/Data/Application/09E54D27-146F-48DC-A56B-80AD273AFA9A/Library/Cookies/Cookies.binarycookies
+2015-01-26 15:43:27.839 Vendable[5154:64399] Apache Cordova native platform version 3.7.0 is starting.
+2015-01-26 15:43:27.839 Vendable[5154:64399] Multi-tasking -> Device: YES, App: YES
+2015-01-26 15:43:27.888 Vendable[5154:64399] Unlimited access to network resources
+2015-01-26 15:43:30.991 Vendable[5154:64399] WARNING: The splashscreen image named Default-667h was not found
+2015-01-26 15:43:30.991 Vendable[5154:64399] [CDVTimer][splashscreen] 951.521993ms
+2015-01-26 15:43:30.991 Vendable[5154:64399] [CDVTimer][TotalPluginStartup] 951.762974ms
+2015-01-26 15:43:31.343 Vendable[5154:64399] WARNING: The splashscreen image named Default-667h was not found
+2015-01-26 15:43:33.983 Vendable[5154:64399] Resetting plugins due to page load.
+2015-01-26 15:43:41.718 Vendable[5154:64399] Finished load of: file:///Users/BrieMarie/Library/Developer/CoreSimulator/Devices/FC34AACA-8973-41E9-BA12-DD2DA41EE994/data/Containers/Bundle/Application/CCD97893-A2F5-45D8-9033-EF2A6EF11FE3/Vendable.app/www/index.html
