@@ -25,16 +25,33 @@
 
 
   <body ng-app="Vendable" ng-controller="VendableCtrl">
-
     <ion-pane>
-      <ion-header-bar class="bar-calm">
-      <button class="button icon ion-navicon"></button>
-        <h1 class="title">
-            Shopping List
-        </h1>
-        <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
-      </ion-header-bar>
-      
+      <ion-side-menus>
+        <ion-side-menu-content>
+          <ion-header-bar class="bar-positive">
+            <div class="buttons">
+              <button class= "button icon button-clear ion-navicon-round" ng-click="toggleLeft()"></button>
+            </div>
+            <h1 class="title">
+                Shopping List
+            </h1>
+            <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
+          </ion-header-bar>
+        </ion-side-menu-content>
+
+        <ion-side-menu side="left">
+          <ion-list>
+            <ion-item>List 1 <button>Delete</button></ion-item>
+          </ion-list>
+          <ion-list>
+            <ion-item>List 2 <button>Delete</button></ion-item>
+          </ion-list>
+          <ion-list>
+            <ion-item>List 3 <button>Delete</button></ion-item>
+          </ion-list>
+        </ion-side-menu>
+       </ion-side-menus>
+
       <ion-content>
         <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
         <ion-list>
@@ -72,6 +89,3 @@
 </div>
 </script>
 
-<ion-side-menu side="left">
-  <div></div>
-  

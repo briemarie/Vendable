@@ -19,10 +19,15 @@ Vendable.run(function($ionicPlatform) {
 })
 
 Vendable.controller('VendableCtrl',
-  ['$scope','$http','$ionicModal',
-    function($scope,$http,$ionicModal){
+  // ['$scope','$http','$ionicModal', '$ionicSideMenuDelegate',
+    function($scope,$http,$ionicSideMenuDelegate,$ionicModal){
 
       $scope.basket=[];
+
+      $scope.toggleLeft = function() {
+        console.log("here");
+        $ionicSideMenuDelegate.toggleLeft()
+      };
 
       $ionicModal.fromTemplateUrl("search-item-modal.html",{
         scope: $scope,
@@ -51,7 +56,7 @@ Vendable.controller('VendableCtrl',
       };
 
       $scope.addItem=function(item){
-        $scope.basket.push(item); 
+        $scope.basket.push(item);
         console.log(item)
       }
 
@@ -59,5 +64,8 @@ Vendable.controller('VendableCtrl',
         var idx = $scope.basket.indexOf(item);
         $scope.basket.splice(idx,1);
       }
-}]);
+}
+// ]
+);
+
 
