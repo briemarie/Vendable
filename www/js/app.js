@@ -25,7 +25,7 @@ vendable.config(function($stateProvider, $urlRouterProvider){
 })
 
 vendable.controller('VendableCtrl',
-  // ['$scope','$ionicModal','$http',
+  //['$scope','$ionicModal','$http',
   function($scope,$http, $ionicModal){
 
   $ionicModal.fromTemplateUrl("templates/map_modal.html", {
@@ -49,6 +49,7 @@ vendable.controller('VendableCtrl',
     $scope.modal.hide();
   }
 
+
   // $scope.getLocation = function() {
   //   if (navigator.geolocation) {
   //     navigator.geolocation.getCurrentPosition(drawMap)
@@ -64,6 +65,9 @@ vendable.controller('VendableCtrl',
       lng: position.coords.longitude
     });
     console.log(position.coords.latitude, position.coords.longitude )
+   $http.get('http://192.168.060:3000').success(function(response){
+      console.log(response)
+   })
   }
 });
 
