@@ -32,14 +32,16 @@
 
         <ion-side-menu side="left">
            <ion-header-bar class="bar-positive">
-            <button class="button icon" ng-click="addList()">New</button>
+            <button class="button icon" ui-sref='new-list'>New</button>
             <h1 class="title">
                 All List
             </h1>
           </ion-header-bar>
           <ion-content>
           <ion-list>
-            <ion-item ng-repeat="list in lists" ng-click="selectList(list,list.id)">{{list.title}}<button ng-click="deleteList(list)">Delete</button></ion-item>
+          <div ng-repeat="list in lists">
+            <ion-item ng-click="selectList(list,list.id)">{{list.title}}<button ng-click="deleteList(list)">Delete</button></ion-item>
+          </div>
           </ion-list>
         </ion-content>
         </ion-side-menu>
