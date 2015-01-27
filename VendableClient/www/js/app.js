@@ -105,8 +105,6 @@ Vendable.factory('Lists',function(){
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
     function($scope,searchItemsService,Lists,$ionicModal,$ionicSideMenuDelegate){
-
-      console.log(Lists.all());
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
@@ -157,18 +155,18 @@ Vendable.controller('VendableCtrl',
         scope: $scope,
         animation: 'slide-in-up'
       }).then(function(modal){
-        $scope.modal = modal //This change the modal of the scope
+        $scope.modalSearch = modal //This change the modal of the scope
       });
 //-------------------------------------------
-      // $ionicModal.fromTemplateUrl("templates/map_modal.html", {
-      //    scope: $scope,
-      //    animation: 'slide-in-up'
-      //  }).then(function(modal){
-      //    $scope.modal = modal
-      //  })
+      $ionicModal.fromTemplateUrl("templates/map_modal.html", {
+         scope: $scope,
+         animation: 'slide-in-up'
+       }).then(function(modal){
+         $scope.modalMap = modal
+       })
 
        $scope.openMap = function() {
-          $scope.modal.show();
+          $scope.modalMap.show();
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(drawMap)
           }
@@ -178,7 +176,7 @@ Vendable.controller('VendableCtrl',
         }
 
         $scope.closeModal = function(){
-          $scope.modal.hide();
+          $scope.modalMap.hide();
         }
 
 
@@ -196,18 +194,31 @@ Vendable.controller('VendableCtrl',
             lat: position.coords.latitude,
             lng: position.coords.longitude
           });
-          console.log(position.coords.latitude, position.coords.longitude )
-         $http.get('http://192.168.060:3000').success(function(response){
-            console.log(response)
+
+          var setMarker = function(la,ln, info) {
+            marker = map.addMarker({
+              lat: la,
+              lng: ln,
+              infoWindow: {
+                content: '<h4>'+info+'</h4>'
+              }
+            });
+          }
+          $http.get('http://192.168.0.86:3000/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+            length = response.length
+            console.log(response[1])
+            for(var i = 0; i< length; i++){
+              setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name)
+            }
          })
         }
 //-------------------------------------------------
       $scope.openSearchModal = function(){
-        $scope.modal.show()
+        $scope.modalSearch.show()
       };
 
       $scope.closeSearchModal = function(){
-        $scope.modal.hide()
+        $scope.modalSearch.hide()
       }
 
 

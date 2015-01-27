@@ -1,4 +1,4 @@
-  
+
       <ion-side-menus>
         <ion-side-menu-content>
           <ion-header-bar class="bar-calm">
@@ -8,7 +8,7 @@
               </h1>
             <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
           </ion-header-bar>
-      
+
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
@@ -16,6 +16,7 @@
                 {{item}} <button class="button" ng-click=deleteItem(item)></button>
               </ion-item>
             </ion-list>
+            <button class="button button-block button-positive" ng-click="openMap()">Map</button>
           </ion-content>
         </ion-side-menu-content>
 
