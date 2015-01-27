@@ -19,12 +19,12 @@ Vendable.run(function($ionicPlatform) {
 })
 
 Vendable.config(function($stateProvider, $urlRouterProvider){
-  $urlRouterProvider.otherwise('/index')
+  $urlRouterProvider.otherwise('/')
 
-  // $stateProvider.state('home',{
-  //   url: '/',
-  //   templateUrl: 'templates/home.html'
-  // });
+  $stateProvider.state('home',{
+    url: '/',
+    templateUrl: 'templates/home.html'
+  });
 
   $stateProvider.state('index',{
     url: '/index',
@@ -48,7 +48,7 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-                  console.log("u")
+                  
             // return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
             return $http.get("http://localhost:9393")
                     .then(function(response){
@@ -108,7 +108,6 @@ Vendable.controller('VendableCtrl',
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
-        console.log(lis)
         var id = function(){
           if($scope.lists.length === 0){
             return 0
@@ -228,10 +227,11 @@ Vendable.controller('VendableCtrl',
       $scope.results=[];
 
       $scope.search=function(){
+        if ($scope.data.keyWord.length >= 3){
         searchItemsService.scan($scope.data.keyWord).then(function(response){
-          $scope.results=response
+          $scope.results=response.slice(0,20)
           console.log($scope.results)
-        });
+        });}
       }
 
       $scope.addItem=function(item){
@@ -244,8 +244,9 @@ Vendable.controller('VendableCtrl',
 
       $scope.deleteItem=function(item){
         var list = $scope.activeList;
+        var indexItem = list.items.indexOf(item)
         var index = $scope.lists.indexOf(list);
-        $scope.lists[index].items.splice(index,1);
+        $scope.lists[index].items.splice(indexItem,1);
       }
 }
 // ]
