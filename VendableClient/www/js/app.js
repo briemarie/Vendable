@@ -19,12 +19,12 @@ Vendable.run(function($ionicPlatform) {
 })
 
 Vendable.config(function($stateProvider, $urlRouterProvider){
-  $urlRouterProvider.otherwise('/')
+  $urlRouterProvider.otherwise('/index')
 
-  $stateProvider.state('home',{
-    url: '/',
-    templateUrl: 'templates/home.html'
-  });
+  // $stateProvider.state('home',{
+  //   url: '/',
+  //   templateUrl: 'templates/home.html'
+  // });
 
   $stateProvider.state('index',{
     url: '/index',
@@ -104,10 +104,11 @@ Vendable.factory('Lists',function(){
 
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
-    function($scope,searchItemsService,Lists,$ionicModal,$ionicSideMenuDelegate){
+    function($scope,searchItemsService,Lists,$ionicModal,$ionicSideMenuDelegate, $http){
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
+        console.log(lis)
         var id = function(){
           if($scope.lists.length === 0){
             return 0
@@ -204,6 +205,7 @@ Vendable.controller('VendableCtrl',
               }
             });
           }
+          console.log($scope.activeList)
           $http.get('http://192.168.0.86:3000/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
             console.log(response[1])
