@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AAF2D464-20BF-4330-B447-5C72E6E12AAC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Vendable</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F3F8786DA3E9DE855B2771194D689BBEFF8E792B</key>
+		<string>github.com:Midnightapplepie/Vendable.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>VendableClient/platforms/ios/Vendable.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F3F8786DA3E9DE855B2771194D689BBEFF8E792B</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:Midnightapplepie/Vendable.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F3F8786DA3E9DE855B2771194D689BBEFF8E792B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F3F8786DA3E9DE855B2771194D689BBEFF8E792B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Vendable</string>
+		</dict>
+	</array>
+</dict>
+</plist>
