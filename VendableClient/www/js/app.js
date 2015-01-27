@@ -203,7 +203,7 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-          var map = new GMaps({
+           var map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -240,13 +240,13 @@ Vendable.controller('VendableCtrl',
          })
         }
 
-        $scope.showPanaroma = function(la, ln){
-          var panorama = GMaps.createPanorama({
-            el: '#panorama',
-            lat: 42.3455,
-            ln: -71.0983
-          })
-        }
+        // $scope.showPanaroma = function(la, ln){
+        //   var panorama = GMaps.createPanorama({
+        //     el: '#panorama',
+        //     lat: 42.3455,
+        //     ln: -71.0983
+        //   })
+        // }
 //-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()

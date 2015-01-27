@@ -24,11 +24,11 @@
   width: 100%;
 }
 
-
+/*
 #panorama {
   height: 500px;
   width: 100%;
-}
+}*/
 
 @keyframes animatedBackground {
     0% { background-position: 0 0; }
