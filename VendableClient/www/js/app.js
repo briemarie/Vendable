@@ -49,7 +49,8 @@ Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
                   console.log("u")
-            return $http.get('http://localhost:9393')
+            // return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
+            return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
                     })
@@ -90,6 +91,7 @@ Vendable.factory('Lists',function(){
 
     getLastActiveList:function(){
       return parseInt(window.localStorage['lastActiveList']) || 0;
+      console.log(window.localStorage['lastActiveList'])
       //return index number 0 if no prior active list
     },
 
@@ -103,13 +105,12 @@ Vendable.factory('Lists',function(){
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
     function($scope,searchItemsService,Lists,$ionicModal,$ionicSideMenuDelegate){
-      console.log($scope.activeList)
-      
+
+      console.log(Lists.all());
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
         var id = function(){
-          console.log($scope.lists.length)
           if($scope.lists.length === 0){
             return 0
           }else{
@@ -124,7 +125,6 @@ Vendable.controller('VendableCtrl',
       }
 
       $scope.activeList=$scope.lists[Lists.getLastActiveList()];
-      console.log($scope.activeList);
 
 
       $scope.addList=function(){
@@ -135,6 +135,7 @@ Vendable.controller('VendableCtrl',
       };
 
       $scope.selectList=function(list){
+        console.log(list);
         $scope.activeList=list;
         Lists.setLastActiveList(list.id);
         $ionicSideMenuDelegate.toggleLeft(false);
@@ -143,6 +144,8 @@ Vendable.controller('VendableCtrl',
       $scope.deleteList=function(list){
         Lists.removeList(list);
         $scope.selectList($scope.lists[0]);
+        var index = $scope.lists.indexOf(list); 
+        $scope.lists.splice(index,1);
       }
 
       $scope.toggleLeft = function() {
@@ -209,24 +212,27 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.data={};
-      $scope.items={};
+      $scope.results=[];
 
       $scope.search=function(){
         searchItemsService.scan($scope.data.keyWord).then(function(response){
-          $scope.items=response
+          $scope.results=response
+          console.log($scope.results)
         });
       }
 
       $scope.addItem=function(item){
+        // console.log($scope.activeList)
         $scope.activeList.items.push(item)
 
-        console.log($scope.lists);
+        // console.log($scope.lists);
         Lists.save($scope.lists);
       }
 
       $scope.deleteItem=function(item){
-        var idx = $scope.basket.indexOf(item);
-        $scope.basket.splice(idx,1);
+        var list = $scope.activeList;
+        var index = $scope.lists.indexOf(list);
+        $scope.lists[index].items.splice(index,1);
       }
 }
 // ]
