@@ -6,6 +6,7 @@
 var Vendable=angular.module('Vendable',['ionic']);
 
 Vendable.run(function($ionicPlatform) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -48,7 +49,7 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-                  
+
             // return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
             return $http.get("http://localhost:9393")
                     .then(function(response){
@@ -142,7 +143,7 @@ Vendable.controller('VendableCtrl',
       $scope.deleteList=function(list){
         Lists.removeList(list);
         $scope.selectList($scope.lists[0]);
-        var index = $scope.lists.indexOf(list); 
+        var index = $scope.lists.indexOf(list);
         $scope.lists.splice(index,1);
       }
 

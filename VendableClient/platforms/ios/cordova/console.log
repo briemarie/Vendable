@@ -1,0 +1,20 @@
+2015-01-27 12:15:47.396 Vendable[72617:1390225] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/apprentice/Library/Developer/CoreSimulator/Devices/85FAB3BE-9284-4056-A2D9-88765EC28AFE/data/Containers/Data/Application/33D9AD92-C9B1-44FF-A03E-137E7E7E4F0D/Library/Cookies/Cookies.binarycookies
+2015-01-27 12:15:47.913 Vendable[72617:1390225] Apache Cordova native platform version 3.7.0 is starting.
+2015-01-27 12:15:47.914 Vendable[72617:1390225] Multi-tasking -> Device: YES, App: YES
+2015-01-27 12:15:47.942 Vendable[72617:1390225] Unlimited access to network resources
+2015-01-27 12:15:48.771 Vendable[72617:1390225] [CDVTimer][keyboard] 0.072002ms
+2015-01-27 12:15:48.771 Vendable[72617:1390225] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
+2015-01-27 12:15:48.771 Vendable[72617:1390225] [CDVTimer][splashscreen] 0.141025ms
+2015-01-27 12:15:48.771 Vendable[72617:1390225] [CDVTimer][TotalPluginStartup] 0.612020ms
+2015-01-27 12:15:49.347 Vendable[72617:1390225] Resetting plugins due to page load.
+2015-01-27 12:15:49.780 Vendable[72617:1390225] Finished load of: file:///Users/apprentice/Library/Developer/CoreSimulator/Devices/85FAB3BE-9284-4056-A2D9-88765EC28AFE/data/Containers/Bundle/Application/EDC9F854-E4E0-4C95-9A64-321DF61B4538/Vendable.app/www/index.html#/
+2015-01-27 12:15:54.746 Vendable[72617:1390225] CDVPlugin class CDVSplashScreen (pluginName: SplashScreen) does not exist.
+2015-01-27 12:15:54.746 Vendable[72617:1390225] ERROR: Plugin 'SplashScreen' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2015-01-27 12:15:54.746 Vendable[72617:1390225] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "INVALID",
+  "SplashScreen",
+  "hide",
+  [
+
+  ]
+]
