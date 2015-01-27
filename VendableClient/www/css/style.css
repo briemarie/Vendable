@@ -24,7 +24,12 @@
   width: 100%;
 }
 
-<style>
+
+#panorama {
+  height: 500px;
+  width: 100%;
+}
+
 @keyframes animatedBackground {
     0% { background-position: 0 0; }
     100% { background-position: -200px 0; }
@@ -46,9 +51,10 @@
     100% { background-position: -200px 0; }
 }
 
-#slide{ 
-    width: 100%; 
-    height: 100%; 
+
+#slide{
+    width: 100%;
+    height: 100%;
     background-image: url(https://c1.staticflickr.com/9/8426/7877358372_a88ebffb2d_c.jpg);
     background-position: 0px 0px;
 
@@ -58,9 +64,9 @@
     -ms-animation: animatedBackground 10s linear infinite;
     -o-animation: animatedBackground 10s linear infinite;
 }
-.addButton{
-  font-size: 7em;
-}
+
+
+
 
 #slide-cover{
   opacity: 0.2;
@@ -76,15 +82,16 @@
 
 .expandUp{
   animation-name: expandUp;
-  -webkit-animation-name: expandUp; 
 
-  animation-duration: 1s; 
+  -webkit-animation-name: expandUp;
+
+  animation-duration: 1s;
   -webkit-animation-duration: 1s;
 
-  animation-timing-function: ease;  
-  -webkit-animation-timing-function: ease;    
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
 
-  visibility: visible; !important; 
+  visibility: visible; !important;
 }
 
 @keyframes expandUp {
@@ -96,10 +103,10 @@
   }
   75%{
     transform: translateY(3%);
-  } 
+  }
   100% {
     transform: translateY(0%) scale(1) scaleY(1);
-  } 
+  }
 }
 
 @-webkit-keyframes expandUp {
@@ -111,8 +118,16 @@
   }
   75%{
     -webkit-transform: translateY(3%);
-  } 
+  }
   100% {
     -webkit-transform: translateY(0%) scale(1) scaleY(1);
-  } 
+  }
+}
+
+.total {
+    font-size: 20px;
+  }
+  100% {
+    -webkit-transform: translateY(0%) scale(1) scaleY(1);
+  }
 }
