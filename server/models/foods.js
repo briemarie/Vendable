@@ -1,11 +1,14 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/food');
-// mongoose.connect('mongodb://lance:lance@ds031601.mongolab.com:31601/vendable');
+var config = require('../configuration/config');
+// mongoose.connect('mongodb://localhost/food');
+mongoose.connect('mongodb://' + config.dbUserName + ':' + config.dbPassWord +'@ds031601.mongolab.com:31601/vendable');
 var Schema = mongoose.Schema;
 
 var foodsSchema = new Schema({
-  type: { type: [String], index: "text" },
-  stores: {}
+  item: String,
+  price: String
 });
 
 module.exports = mongoose.model('foods', foodsSchema);
+
+

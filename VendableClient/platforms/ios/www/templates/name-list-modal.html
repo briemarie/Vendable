@@ -1,0 +1,13 @@
+<script id="name-list-modal.html" type="input/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Give your list a name</h1>
+    </ion-header-bar>
+    <ion-content>
+      <form name="nameListForm" ng-controller="VendableCtrl">
+        <input type="text" name="input" ng-model="text" ng-pattern="word" required ng-trim="false">
+        <input type="button" onclick= //need to add the text to the sidemenu as a parameter, and open list to create>
+      </form>
+    </ion-content>
+  </ion-modal-view>
+</script>

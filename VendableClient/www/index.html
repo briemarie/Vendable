@@ -7,12 +7,14 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="gmap.js"></script>
+    <script src="js/gmaps.js"></script>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
@@ -25,25 +27,11 @@
 
 
   <body ng-app="Vendable" ng-controller="VendableCtrl">
-
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Shopping List</h1>
-      </ion-header-bar>
-      
-      <ion-content>
-        <i class="icon ion-ios7-search placeholder-icon">
-        <!-- <button ng-click="openSearchModal()"></button> -->
-        <input type="search" ng-model="data.keyWord" ng-change="scan()" >
-        <ion-list>
-          <ion-item ng-repeat="item in items">
-            {{item.type[0]}}
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-pane>
+    <ion-nav-view></ion-nav-view>
   </body>
 </html>
 
-<!-- <script id="contact-modal.html" type="text/ng-template"></script> -->
-<!-- <input> -->
+<!--below is the search template-->
+
+
+
