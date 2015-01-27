@@ -219,6 +219,7 @@ Vendable.controller('VendableCtrl',
             });
           }
 
+          
           var list = $scope.activeList
           var length = list.items.length
           var total = 0
@@ -229,7 +230,7 @@ Vendable.controller('VendableCtrl',
           }
           $scope.total = total.toFixed(2)
           // console.log($scope.activeList.items[1].price)
-          $http.get('http://192.168.0.86:3000/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
             console.log(response[1])
             for(var i = 0; i< length; i++){
@@ -280,6 +281,7 @@ Vendable.controller('VendableCtrl',
         var indexItem = list.items.indexOf(item)
         var index = $scope.lists.indexOf(list);
         $scope.lists[index].items.splice(indexItem,1);
+        $scope.selectList($scope.list[0])
       }
 }
 // ]
