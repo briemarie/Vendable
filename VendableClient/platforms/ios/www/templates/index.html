@@ -12,10 +12,21 @@
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
-              <ion-item ng-repeat="shit in activeList.items">
-                {{shit}} <button class="button" ng-click=deleteItem(shit)></button>
+              <ion-item ng-repeat="item in activeList.items">
+              <div class='row'>
+                <div class='col-50'>
+                  {{item.item}}
+                </div>
+                <div class='col-25'>
+                  <p>${{item.price}}</p>
+                </div>
+                <div class='col-25'>
+                  <button class="button" ng-click=deleteItem(item)>Delete</button>
+                </div>
+              </div>
               </ion-item>
             </ion-list>
+            <button class="button button-block button-positive" ng-click="openMap()">Map</button>
           </ion-content>
         </ion-side-menu-content>
 
@@ -30,7 +41,6 @@
           <ion-list>
             <ion-item ng-repeat="list in lists" ng-click="selectList(list,list.id)">{{list.title}}<button ng-click="deleteList(list)">Delete</button></ion-item>
           </ion-list>
-          <button class="button button-block button-positive" ng-click="openMap()">Map</button>
         </ion-content>
         </ion-side-menu>
       </ion-side-menus>

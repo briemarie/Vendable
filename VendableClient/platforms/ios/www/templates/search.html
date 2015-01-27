@@ -13,8 +13,8 @@
     </div>
 
     <ion-list>
-          <ion-item ng-repeat="item in items">
-            <button type="submit" class="button button-block button-positive" ng-click="addItem(item.type[0])">{{item.type}}</button>
+          <ion-item ng-repeat="data in results">
+            <button type="submit" class="button button-block button-positive" ng-click="addItem(data)">{{data.item}}</button>
           </ion-item>
     </ion-list>
   </ion-content>
