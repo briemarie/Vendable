@@ -8,3 +8,13 @@
 2015-01-26 15:43:31.343 Vendable[5154:64399] WARNING: The splashscreen image named Default-667h was not found
 2015-01-26 15:43:33.983 Vendable[5154:64399] Resetting plugins due to page load.
 2015-01-26 15:43:41.718 Vendable[5154:64399] Finished load of: file:///Users/BrieMarie/Library/Developer/CoreSimulator/Devices/FC34AACA-8973-41E9-BA12-DD2DA41EE994/data/Containers/Bundle/Application/CCD97893-A2F5-45D8-9033-EF2A6EF11FE3/Vendable.app/www/index.html
+2015-01-26 15:50:15.454 Vendable[5547:67168] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/BrieMarie/Library/Developer/CoreSimulator/Devices/FC34AACA-8973-41E9-BA12-DD2DA41EE994/data/Containers/Data/Application/B36F9E9E-34D6-4A5C-9B85-B4AA331D31C0/Library/Cookies/Cookies.binarycookies
+2015-01-26 15:50:15.617 Vendable[5547:67168] Apache Cordova native platform version 3.7.0 is starting.
+2015-01-26 15:50:15.617 Vendable[5547:67168] Multi-tasking -> Device: YES, App: YES
+2015-01-26 15:50:15.619 Vendable[5547:67168] Unlimited access to network resources
+2015-01-26 15:50:16.068 Vendable[5547:67168] WARNING: The splashscreen image named Default-667h was not found
+2015-01-26 15:50:16.068 Vendable[5547:67168] [CDVTimer][splashscreen] 103.314996ms
+2015-01-26 15:50:16.069 Vendable[5547:67168] [CDVTimer][TotalPluginStartup] 103.513002ms
+2015-01-26 15:50:16.075 Vendable[5547:67168] WARNING: The splashscreen image named Default-667h was not found
+2015-01-26 15:50:16.329 Vendable[5547:67168] Resetting plugins due to page load.
+2015-01-26 15:50:17.415 Vendable[5547:67168] Finished load of: file:///Users/BrieMarie/Library/Developer/CoreSimulator/Devices/FC34AACA-8973-41E9-BA12-DD2DA41EE994/data/Containers/Bundle/Application/CFD39DC3-1AC6-420B-9309-B4DC9C3462D9/Vendable.app/www/index.html
