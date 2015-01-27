@@ -58,9 +58,6 @@
     -ms-animation: animatedBackground 10s linear infinite;
     -o-animation: animatedBackground 10s linear infinite;
 }
-.addButton{
-  font-size: 7em;
-}
 
 #slide-cover{
   opacity: 0.2;
