@@ -48,9 +48,9 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-                  
-            // return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
-            return $http.get("http://localhost:9393")
+
+            return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
+            // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
                     })
@@ -142,7 +142,7 @@ Vendable.controller('VendableCtrl',
       $scope.deleteList=function(list){
         Lists.removeList(list);
         $scope.selectList($scope.lists[0]);
-        var index = $scope.lists.indexOf(list); 
+        var index = $scope.lists.indexOf(list);
         $scope.lists.splice(index,1);
       }
 
@@ -164,6 +164,14 @@ Vendable.controller('VendableCtrl',
        }).then(function(modal){
          $scope.modalMap = modal
        })
+
+       $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal){
+          $scope.modalMap = modal
+        })
+
 
        $scope.openMap = function() {
           $scope.modalMap.show();
@@ -204,14 +212,33 @@ Vendable.controller('VendableCtrl',
               }
             });
           }
-          console.log($scope.activeList)
+
+          var list = $scope.activeList
+          var length = list.items.length
+          var total = 0
+          for (var i = 0; i<length; i++) {
+            console.log(total)
+            number = parseFloat(list.items[i].price)
+            total += number
+          }
+          $scope.total = total.toFixed(2)
+          // console.log($scope.activeList.items[1].price)
           $http.get('http://192.168.0.86:3000/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
             console.log(response[1])
             for(var i = 0; i< length; i++){
               setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name)
             }
+
          })
+        }
+
+        $scope.showPanaroma = function(la, ln){
+          var panorama = GMaps.createPanorama({
+            el: '#panorama',
+            lat: 42.3455,
+            ln: -71.0983
+          })
         }
 //-------------------------------------------------
       $scope.openSearchModal = function(){
@@ -230,7 +257,7 @@ Vendable.controller('VendableCtrl',
         if ($scope.data.keyWord.length >= 3){
         searchItemsService.scan($scope.data.keyWord).then(function(response){
           $scope.results=response.slice(0,20)
-          console.log($scope.results)
+          console.log($scope.results[0].price)
         });}
       }
 
