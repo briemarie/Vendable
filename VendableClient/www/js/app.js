@@ -203,7 +203,7 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-          var map = new GMaps({
+           var map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -229,7 +229,7 @@ Vendable.controller('VendableCtrl',
           }
           $scope.total = total.toFixed(2)
           // console.log($scope.activeList.items[1].price)
-          $http.get('http://192.168.0.86:3000/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
             console.log(response[1])
             for(var i = 0; i< length; i++){
@@ -239,13 +239,13 @@ Vendable.controller('VendableCtrl',
          })
         }
 
-        $scope.showPanaroma = function(la, ln){
-          var panorama = GMaps.createPanorama({
-            el: '#panorama',
-            lat: 42.3455,
-            ln: -71.0983
-          })
-        }
+        // $scope.showPanaroma = function(la, ln){
+        //   var panorama = GMaps.createPanorama({
+        //     el: '#panorama',
+        //     lat: 42.3455,
+        //     ln: -71.0983
+        //   })
+        // }
 //-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
