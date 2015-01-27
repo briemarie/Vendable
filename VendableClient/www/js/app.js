@@ -26,19 +26,19 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
     templateUrl: 'templates/home.html'
   });
 
-  $stateProvider.state('index',{
-    url: '/index',
-    templateUrl: 'templates/index.html'
+  $stateProvider.state('list',{
+    url: '/list',
+    templateUrl: 'templates/list.html'
   });
 
-  $stateProvider.state('new_list', {
-    url: '/new_list',
-    templateUrl: 'templates/new_list.html'
+  $stateProvider.state('new-list', {
+    url: '/new-list',
+    templateUrl: 'templates/new-list.html'
   })
 
   $stateProvider.state('all_list', {
-    url: '/index',
-    templateUrl: 'templates/index.html'
+    url: '/list',
+    templateUrl: 'templates/list.html'
   })
 
 });
@@ -49,8 +49,8 @@ Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
                   
-            // return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
-            return $http.get("http://localhost:9393")
+            return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
+            // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
                     })
@@ -125,8 +125,8 @@ Vendable.controller('VendableCtrl',
       $scope.activeList=$scope.lists[Lists.getLastActiveList()];
 
 
-      $scope.addList=function(){
-        var listName=prompt('Give me a Name');
+      $scope.addList=function(listName){
+        var listName=listName;
         if (listName){
           createList(listName);
         }
@@ -150,6 +150,13 @@ Vendable.controller('VendableCtrl',
         console.log("here");
         $ionicSideMenuDelegate.toggleLeft()
       };
+
+      $ionicModal.fromTemplateUrl("templates/list.html",{
+        scope: $scope,
+        animation: 'slide-in-down'
+      }).then(function(modal){
+        $scope.modalList=modal
+      })
 
       $ionicModal.fromTemplateUrl("templates/search.html",{
         scope: $scope,
