@@ -47,8 +47,8 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord,store){
-            // return $http.get('http://aqueous-beyond-9351.herokuapp.com/'+keyWord+"&"+store)
-            return $http.get("http://localhost:9393")
+            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+"&"+store)
+            // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
                     })
@@ -130,7 +130,7 @@ Vendable.controller('VendableCtrl',
           return $scope.lists[$scope.lists.length-1].id+1
           }
         };
-        var newList=Lists.newList(listName,id());
+        var newList=Lists.newList(listName,id(),$scope.activeStore);
         $scope.lists.push(newList);
         Lists.save($scope.lists);
         $scope.selectList(newList);
@@ -181,6 +181,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.setActiveStore = function(store){
         $scope.activeStore=store;
+        console.log($scope.activeStore);
         $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
         $scope.closeModal()
       }
@@ -290,7 +291,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord,$scope.activeStore).then(function(response){
+        searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
           $scope.results=response.slice(0,20)
         });}
       }
