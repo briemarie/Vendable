@@ -189,8 +189,11 @@ Vendable.controller('VendableCtrl',
           }
         }
 
-        $scope.storeName = function(storeName){
-          console.log(storeName)
+        $scope.setActiveStore = function(store){
+          $scope.activeStore=store;
+          console.log(store.location.latitude)
+          $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
+          console.log($scope.activeStore.laln)
           $scope.closeModal()
         }
 
@@ -252,12 +255,15 @@ Vendable.controller('VendableCtrl',
             length = response.length
             console.log(response)
             for(var i = 0; i< length; i++){
-              $scope
+              // $scope What thte hell is this
               setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name, "supermarket")
             }
           $scope.stores = response
+          console.log(response[0])
          })
         }
+
+        $scope.activeStore;
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -302,6 +308,8 @@ Vendable.controller('VendableCtrl',
         $scope.lists[index].items.splice(indexItem,1);
         $scope.selectList($scope.list[0])
       }
+
+
 }
 // ]
 );

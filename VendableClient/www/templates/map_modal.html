@@ -12,7 +12,7 @@
           <i class="icon ion-social-usd "></i>
           <h3>Grocery Total: {{total}}</h3>
         </a>
-        <a ui-sref="all_list" class="item item-icon-left" ng-click="storeName(store.name)" ng-repeat="store in stores">
+        <a ui-sref="all_list" class="item item-icon-left" ng-click="setActiveStore(store)" ng-repeat="store in stores">
           <i class="icon ion-ios-cart-outline"></i>
           <h3>{{store.name}}</h3>
         </a>
