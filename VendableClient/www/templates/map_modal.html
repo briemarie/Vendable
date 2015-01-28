@@ -9,14 +9,16 @@
       </div>
       <div class='list card'>
         <a href="#" class="item item-icon-left">
-          <i class="icon ion-social-usd total"></i>
+          <i class="icon ion-social-usd "></i>
           <h3>Grocery Total: {{total}}</h3>
         </a>
-         <a href="#" class="item item-icon-left" ng-click="">
-
+        <a ui-sref="all_list" class="item item-icon-left" ng-click="setActiveStore(store)" ng-repeat="store in stores">
+          <i class="icon ion-ios-cart-outline"></i>
+          <h3>{{store.name}}</h3>
         </a>
       </div>
        <button class="button button-block button-energized" ng-click="closeModal()">Done</button>
     </ion-content>
   </div>
 </ion-vew>
+

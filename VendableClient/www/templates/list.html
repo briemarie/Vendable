@@ -6,7 +6,9 @@
               <h1 class="title">
                 {{activeList.title}}
               </h1>
-            <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
+              <a class="button" ui-sref='home'>Home</a>
+              
+              <button class="button icon" ng-click="openMap()">Change Store</button>
           </ion-header-bar>
 
           <ion-content>
@@ -26,7 +28,9 @@
               </div>
               </ion-item>
             </ion-list>
-            <button class="button button-block button-positive" ng-click="openMap()">Map</button>
+            <button class="button button-block button-clear" ng-click="openSearchModal()">Add Items</button>
+            <a class="button button-block button-calm" ng-href={{activeStore.laln}}>Direction to Store</a>
+            <h1>{{activeStore}}</h1>
           </ion-content>
         </ion-side-menu-content>
 
