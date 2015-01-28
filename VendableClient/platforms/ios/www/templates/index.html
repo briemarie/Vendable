@@ -12,19 +12,21 @@
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
-              <ion-item ng-repeat="item in activeList.items">
-              <div class='row'>
-                <div class='col-50'>
-                  {{item.item}}
+              <div id="note">
+                <ion-item ng-repeat="item in activeList.items">
+                <div class='row'>
+                  <div class='col-50'>
+                    <p>{{item.item}}</p>
+                  </div>
+                  <div class='col-25'>
+                    <p>${{item.price}}</p>
+                  </div>
+                  <div class='col-25'>
+                    <button class="button" ng-click=deleteItem(item)>Delete</button>
+                  </div>
                 </div>
-                <div class='col-25'>
-                  <p>${{item.price}}</p>
-                </div>
-                <div class='col-25'>
-                  <button class="button" ng-click=deleteItem(item)>Delete</button>
-                </div>
+                </ion-item>
               </div>
-              </ion-item>
             </ion-list>
             <button class="button button-block button-positive" ng-click="openMap()">Map</button>
           </ion-content>
@@ -34,7 +36,7 @@
            <ion-header-bar class="bar-positive">
             <button class="button icon" ng-click="addList()">New</button>
             <h1 class="title">
-                All List
+                All Lists
             </h1>
           </ion-header-bar>
           <ion-content>

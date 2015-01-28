@@ -7,26 +7,28 @@
                 {{activeList.title}}
               </h1>
               <a class="button" ui-sref='home'>Home</a>
-              
+
               <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
           </ion-header-bar>
 
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
+            <div id="note">
               <ion-item ng-repeat="item in activeList.items">
               <div class='row'>
                 <div class='col-50'>
-                  {{item.item}}
+                  <p>{{item.item}}<p>
                 </div>
                 <div class='col-25'>
-                  <p>${{item.price}}</p>
+                  <p>${{item.price}}<p>
                 </div>
                 <div class='col-25'>
                   <button class="button" ng-click=deleteItem(item)>Delete</button>
                 </div>
               </div>
               </ion-item>
+            </div>
             </ion-list>
             <button class="button button-block button-positive" ng-click="openMap()">Change Store</button>
           </ion-content>
