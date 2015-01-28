@@ -44,7 +44,6 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 });
 
 
-
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
@@ -176,7 +175,14 @@ Vendable.controller('VendableCtrl',
       }).then(function(modal){
         $scope.modalSearch = modal //This change the modal of the scope
       });
-//-------------------------------------------
+
+
+      $scope.setActiveStore = function(store){
+        $scope.activeStore=store;
+        $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
+        $scope.closeModal()
+      }
+//-------------------------MAP----------------------------------------------------------------
       $ionicModal.fromTemplateUrl("templates/map_modal.html", {
          scope: $scope,
          animation: 'slide-in-up'
@@ -184,12 +190,12 @@ Vendable.controller('VendableCtrl',
          $scope.modalMap = modal
        })
 
-       $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
-          scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function(modal){
-          $scope.modalMap = modal
-        })
+       // $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
+       //    scope: $scope,
+       //    animation: 'slide-in-up'
+       //  }).then(function(modal){
+       //    $scope.modalMap = modal
+       //  })
 
 
        $scope.openMap = function() {
@@ -200,12 +206,6 @@ Vendable.controller('VendableCtrl',
           else {
             $('#message').text("Geolocation not supported")
           }
-        }
-
-        $scope.setActiveStore = function(store){
-          $scope.activeStore=store;
-          $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
-          $scope.closeModal()
         }
 
 
@@ -280,7 +280,7 @@ Vendable.controller('VendableCtrl',
         //     ln: -71.0983
         //   })
         // }
-//-------------------------------------------------
+//--------------------------------------------------------------------END OF MAP
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
       };
