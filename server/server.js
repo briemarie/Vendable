@@ -4,8 +4,6 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var cors = require('cors');
 
-var $ = require('jquery');
-
 var food = require('./routes/food');
 
 var app = express();
@@ -14,7 +12,7 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use('/food', food);
+app.use('/', food);
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.set('port', process.env.PORT || 3000);
