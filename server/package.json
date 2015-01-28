@@ -8,8 +8,8 @@
     "express": "~4.9.0",
     "mongoose": "^3.8.17",
     "yelp": "0.1.1",
-    "jquery": "latest",
     "q": "latest",
-    "request": "latest"
+    "request": "latest",
+    "cors": "latest"
   }
 }
