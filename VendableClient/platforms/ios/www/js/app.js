@@ -26,19 +26,19 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
     templateUrl: 'templates/home.html'
   });
 
-  $stateProvider.state('index',{
-    url: '/index',
-    templateUrl: 'templates/index.html'
+  $stateProvider.state('list',{
+    url: '/list',
+    templateUrl: 'templates/list.html'
   });
 
-  $stateProvider.state('new_list', {
-    url: '/new_list',
-    templateUrl: 'templates/new_list.html'
+  $stateProvider.state('new-list', {
+    url: '/new-list',
+    templateUrl: 'templates/new-list.html'
   })
 
   $stateProvider.state('all_list', {
-    url: '/index',
-    templateUrl: 'templates/index.html'
+    url: '/list',
+    templateUrl: 'templates/list.html'
   })
 
 });
@@ -48,9 +48,8 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-                  
-            // return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
-            return $http.get("http://localhost:9393")
+            return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
+            // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
                     })
@@ -125,8 +124,8 @@ Vendable.controller('VendableCtrl',
       $scope.activeList=$scope.lists[Lists.getLastActiveList()];
 
 
-      $scope.addList=function(){
-        var listName=prompt('Give me a Name');
+      $scope.addList=function(listName){
+        var listName=listName;
         if (listName){
           createList(listName);
         }
@@ -142,7 +141,7 @@ Vendable.controller('VendableCtrl',
       $scope.deleteList=function(list){
         Lists.removeList(list);
         $scope.selectList($scope.lists[0]);
-        var index = $scope.lists.indexOf(list); 
+        var index = $scope.lists.indexOf(list);
         $scope.lists.splice(index,1);
       }
 
@@ -150,6 +149,13 @@ Vendable.controller('VendableCtrl',
         console.log("here");
         $ionicSideMenuDelegate.toggleLeft()
       };
+
+      $ionicModal.fromTemplateUrl("templates/list.html",{
+        scope: $scope,
+        animation: 'slide-in-down'
+      }).then(function(modal){
+        $scope.modalList=modal
+      })
 
       $ionicModal.fromTemplateUrl("templates/search.html",{
         scope: $scope,
@@ -165,6 +171,14 @@ Vendable.controller('VendableCtrl',
          $scope.modalMap = modal
        })
 
+       $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal){
+          $scope.modalMap = modal
+        })
+
+
        $scope.openMap = function() {
           $scope.modalMap.show();
           if (navigator.geolocation) {
@@ -175,10 +189,18 @@ Vendable.controller('VendableCtrl',
           }
         }
 
+        $scope.setActiveStore = function(store){
+          $scope.activeStore=store;
+          console.log(store.location.latitude)
+          $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
+          console.log($scope.activeStore.laln)
+          $scope.closeModal()
+        }
+
+
         $scope.closeModal = function(){
           $scope.modalMap.hide();
         }
-
 
         // $scope.getLocation = function() {
         //   if (navigator.geolocation) {
@@ -189,30 +211,67 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-          var map = new GMaps({
+           var initLat = position.coords.latitude
+           var initLng = position.coords.longitude
+           var map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
           });
 
-          var setMarker = function(la,ln, info) {
+          var setMarker = function(la,ln, info, origin) {
             marker = map.addMarker({
               lat: la,
               lng: ln,
               infoWindow: {
-                content: '<h4>'+info+'</h4>'
-              }
+                content: '<h4>'+info+'</h4><img src="http://media.tumblr.com/tumblr_m7hu22giDp1rqxe4o.jpg">'
+              },
+              icon: icons[origin].icon
             });
           }
-          console.log($scope.activeList)
-          $http.get('http://192.168.0.86:3000/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
-            length = response.length
-            console.log(response[1])
-            for(var i = 0; i< length; i++){
-              setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name)
+
+          var icons = {
+            user: {
+              icon: '../img/map-icons/pins/48/pin6.png'
+            },
+            supermarket: {
+              icon: "../img/map-icons/pins/48/pin9.png"
             }
+          }
+
+          setMarker(initLat, initLng, 'Fuck my life', 'user')
+
+          var list = $scope.activeList
+          var length = list.items.length
+          var total = 0
+          for (var i = 0; i<length; i++) {
+            console.log(total)
+            number = parseFloat(list.items[i].price)
+            total += number
+          }
+          $scope.total = total.toFixed(2)
+          // console.log($scope.activeList.items[1].price)
+          $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+            length = response.length
+            console.log(response)
+            for(var i = 0; i< length; i++){
+              // $scope What thte hell is this
+              setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name, "supermarket")
+            }
+          $scope.stores = response
+          console.log(response[0])
          })
         }
+
+        $scope.activeStore;
+
+        // $scope.showPanaroma = function(la, ln){
+        //   var panorama = GMaps.createPanorama({
+        //     el: '#panorama',
+        //     lat: 42.3455,
+        //     ln: -71.0983
+        //   })
+        // }
 //-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
@@ -230,7 +289,7 @@ Vendable.controller('VendableCtrl',
         if ($scope.data.keyWord.length >= 3){
         searchItemsService.scan($scope.data.keyWord).then(function(response){
           $scope.results=response.slice(0,20)
-          console.log($scope.results)
+          console.log($scope.results[0].price)
         });}
       }
 
@@ -247,7 +306,10 @@ Vendable.controller('VendableCtrl',
         var indexItem = list.items.indexOf(item)
         var index = $scope.lists.indexOf(list);
         $scope.lists[index].items.splice(indexItem,1);
+        $scope.selectList($scope.list[0])
       }
+
+
 }
 // ]
 );
