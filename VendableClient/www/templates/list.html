@@ -7,10 +7,6 @@
                 {{activeList.title}}
               </h1>
               <a class="button" ui-sref='home'>Home</a>
-
-              <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
-
-
               <button class="button icon" ng-click="openMap()">Change Store</button>
           </ion-header-bar>
 
@@ -37,9 +33,8 @@
               <i class="icon ion-social-usd "></i>
                 <h3>Grocery Total: {{total}}</h3>
             </a>
-            <button class="button button-block button-energized" ng-click="openMap()">Change Store</button>
-            <button class="button button-block button-clear" ng-click="openSearchModal()">Add Items</button>
-            <a class="button button-block button-calm" ng-href={{activeStore.laln}}>Direction to Store</a>
+            <button class="button button-block button-energized" ng-click="openSearchModal()">Add Items</button>
+            <a class="button button-block button-energized" ng-href={{activeStore.laln}}>Direction to Store</a>
             <h1>{{activeStore}}</h1>
           </ion-content>
         </ion-side-menu-content>

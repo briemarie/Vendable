@@ -5,7 +5,7 @@
     <ion-content>
     <div id="new-list-container" style="color: balanced">
       <form name="nameListForm">
-        <input type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
+        <input id= "note" type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
         <button id="addButton" class= "button button-full button-energized" ng-click="addList(listName)"  ui-sref='list'> Add List</button>
       </form>
     </div>

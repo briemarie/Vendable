@@ -35,7 +35,7 @@
   height: 5%;
   margin: 5%;
   background-color: transparent;
-  border: 2px solid white;
+  border: 2px solid black;
   display: inline-block;
   border-radius: 5%;
   font-size: 0.4em;
@@ -214,6 +214,7 @@
 .item {
   border: 0px;
   margin: 5px;
+  font-family: 'Gochi Hand', cursive;
   background-color: #FFFF00;
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
 }
