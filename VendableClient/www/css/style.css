@@ -145,12 +145,10 @@
   line-height: 1px;
 }
 
-
-
 #note {
   width: 100%;
   padding: 50px;
-  margin: auto;
+  margin-top: 10px;
   position: relative;
   font-family: 'Gochi Hand', cursive;
   text-align: center;
@@ -181,9 +179,11 @@
 
 .item {
   border: 0px;
+  margin: 5px;
   background-color: #FFFF00;
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
 }
+
 
 
 

@@ -24,13 +24,17 @@
                   <p>${{item.price}}<p>
                 </div>
                 <div class='col-25'>
-                  <button class="deletebutton" ng-click=deleteItem(item)>Delete</button>
+                  <button class="deletebutton" ng-click=deleteItem(item)>X</button>
                 </div>
               </div>
               </ion-item>
             </div>
+            <a href="#" class="item item-icon-left">
+              <i class="icon ion-social-usd "></i>
+              <h3>Grocery Total: {{total}}</h3>
+            </a>
             </ion-list>
-            <button class="button button-block button-balanced" ng-click="openMap()">Change Store</button>
+            <button class="button button-block button-energized" ng-click="openMap()">Change Store</button>
           </ion-content>
         </ion-side-menu-content>
 
@@ -44,7 +48,8 @@
           <ion-content>
           <ion-list>
           <div ng-repeat="list in lists">
-            <ion-item ng-click="selectList(list,list.id)">{{list.title}}<button ng-click="deleteList(list)">Delete</button></ion-item>
+            <ion-item ng-click="selectList(list,list.id)">{{list.title}}
+            <button class="deletebutton" ng-click="deleteList(list)">X</button></ion-item>
           </div>
           </ion-list>
         </ion-content>
