@@ -1,6 +1,6 @@
 <div class="modal">
   <ion-header-bar class="bar-balanced">
-    <h1 class="title">Search some fool</h1>
+    <h1 class="title">Search food items</h1>
     <button class="button" ng-click="closeSearchModal()">Close</button>
   </ion-header-bar>
 
@@ -13,6 +13,7 @@
     </div>
 
     <ion-list>
+<<<<<<< HEAD
           <ion-item ng-repeat="data in results" ng-click="addItem(data)">
 
             <label class="checkbox search-confirm-box">
@@ -22,6 +23,10 @@
           <!--   <button type="submit" class="button button-block button-positive" ng-click="addItem(data)"> -->
             <!-- </button> -->
 
+=======
+          <ion-item ng-repeat="data in results">
+            <button type="submit" class="button button-block button-balanced" ng-click="addItem(data)">{{data.item}}</button>
+>>>>>>> 2a435a4770201baad1cbbf875f8b3c4ef707fec3
           </ion-item>
     </ion-list>
   </ion-content>

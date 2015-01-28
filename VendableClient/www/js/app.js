@@ -46,8 +46,13 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 
 Vendable.factory('searchItemsService',function($http){
       return{
+<<<<<<< HEAD
             scan:function(keyWord,store){
             return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+"&"+store)
+=======
+            scan:function(keyWord){
+            return $http.get('http://aqueous-beyond-9351.herokuapp.com/'+keyWord+'&safeway')
+>>>>>>> 2a435a4770201baad1cbbf875f8b3c4ef707fec3
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
