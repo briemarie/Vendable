@@ -189,10 +189,15 @@ Vendable.controller('VendableCtrl',
           }
         }
 
+        $scope.storeName = function(storeName){
+          console.log(storeName)
+          $scope.closeModal()
+        }
+
+
         $scope.closeModal = function(){
           $scope.modalMap.hide();
         }
-
 
         // $scope.getLocation = function() {
         //   if (navigator.geolocation) {
@@ -203,23 +208,36 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-          var map = new GMaps({
+           var initLat = position.coords.latitude
+           var initLng = position.coords.longitude
+           var map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
           });
 
-          var setMarker = function(la,ln, info) {
+          var setMarker = function(la,ln, info, origin) {
             marker = map.addMarker({
               lat: la,
               lng: ln,
               infoWindow: {
-                content: '<h4>'+info+'</h4>'
-              }
+                content: '<h4>'+info+'</h4><img src="http://media.tumblr.com/tumblr_m7hu22giDp1rqxe4o.jpg">'
+              },
+              icon: icons[origin].icon
             });
           }
 
-          
+          var icons = {
+            user: {
+              icon: '../img/map-icons/pins/48/pin6.png'
+            },
+            supermarket: {
+              icon: "../img/map-icons/pins/48/pin9.png"
+            }
+          }
+
+          setMarker(initLat, initLng, 'Fuck my life', 'user')
+
           var list = $scope.activeList
           var length = list.items.length
           var total = 0
@@ -232,21 +250,22 @@ Vendable.controller('VendableCtrl',
           // console.log($scope.activeList.items[1].price)
           $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
-            console.log(response[1])
+            console.log(response)
             for(var i = 0; i< length; i++){
-              setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name)
+              $scope
+              setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name, "supermarket")
             }
-
+          $scope.stores = response
          })
         }
 
-        $scope.showPanaroma = function(la, ln){
-          var panorama = GMaps.createPanorama({
-            el: '#panorama',
-            lat: 42.3455,
-            ln: -71.0983
-          })
-        }
+        // $scope.showPanaroma = function(la, ln){
+        //   var panorama = GMaps.createPanorama({
+        //     el: '#panorama',
+        //     lat: 42.3455,
+        //     ln: -71.0983
+        //   })
+        // }
 //-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
