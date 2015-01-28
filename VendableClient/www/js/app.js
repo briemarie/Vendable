@@ -46,9 +46,9 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 
 Vendable.factory('searchItemsService',function($http){
       return{
-            scan:function(keyWord){
-            return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
-            // return $http.get("http://localhost:9393")
+            scan:function(keyWord,store){
+            // return $http.get('http://aqueous-beyond-9351.herokuapp.com/'+keyWord+"&"+store)
+            return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
                     })
@@ -136,7 +136,9 @@ Vendable.controller('VendableCtrl',
         $scope.selectList(newList);
       }
 
-      $scope.activeList=$scope.lists[Lists.getLastActiveList()];
+      $scope.activeList=$scope.lists[Lists.getLastActiveList()] || {};
+
+      console.log($scope.activeList)
 
       $scope.addList=function(listName){
         var listName=listName;
@@ -252,16 +254,9 @@ Vendable.controller('VendableCtrl',
 
           setMarker(initLat, initLng, 'Fuck my life', 'user')
 
-          var list = $scope.activeList
-          var length = list.items.length
-          var total = 0
-          for (var i = 0; i<length; i++) {
-            number = parseFloat(list.items[i].price)
-            total += number
-          }
-          $scope.total = total.toFixed(2)
           // console.log($scope.activeList.items[1].price)
-          $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          // $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
@@ -295,7 +290,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord).then(function(response){
+        searchItemsService.scan($scope.data.keyWord,$scope.activeStore).then(function(response){
           $scope.results=response.slice(0,20)
         });}
       }
