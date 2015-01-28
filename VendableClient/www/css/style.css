@@ -79,7 +79,13 @@
 }
 
 .deletebutton {
+  background-color: #FF5050;
+  border-radius: 49%;
+}
 
+.checkbox {
+  background-color: #00FF00;
+  border-radius: 49%;
 }
 
 .expandUp{

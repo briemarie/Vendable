@@ -48,7 +48,7 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-            return $http.get('http://aqueous-beyond-9351.herokuapp.com/food/'+keyWord)
+            return $http.get('http://aqueous-beyond-9351.herokuapp.com/'+keyWord+'&safeway')
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
