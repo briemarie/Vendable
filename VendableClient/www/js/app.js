@@ -366,7 +366,7 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.changeColor=function(){
-        // $scope.activeColor = ColorWheel.shiftOne();
+        $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
       $scope.activeColor;
