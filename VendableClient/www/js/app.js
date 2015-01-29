@@ -47,8 +47,7 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord, store){
-            console.log(store);
-            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
+            return $http.get('http://192.168.0.86:3000/'+keyWord+'&'+store)
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -57,11 +56,11 @@ Vendable.factory('searchItemsService',function($http){
             }
 });
 
+
 Vendable.factory('ColorWheel',function(){
-  window.localStorage['colors'] = angular.toJson([
-                                  '0CE885', 'A2BCFF', 'E8C05B',
-                                  'E8E5B9', 'FF8C0D', '8BE8AC', 'E85542',
-                                  , '75E8C6']);
+  window.localStorage['colors'] = angular.toJson(['0CE885', 'A2BCFF', 'E8C05B',
+                                                  'E8E5B9', 'FF8C0D', '8BE8AC', 'E85542'
+                                                  ,'75E8C6']);
   return {
     shiftOne:function(){
       var colors = angular.fromJson(window.localStorage['colors']);
@@ -284,7 +283,7 @@ Vendable.controller('VendableCtrl',
 
           // console.log($scope.activeList.items[1].price)
 
-          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
@@ -295,11 +294,11 @@ Vendable.controller('VendableCtrl',
         }
 
 
-        $scope.activeStore=function(){
-          if($scope.activeList){
-            return $scope.activeList.store.name.split(/\W/)[0];
-          }
-        }();
+        // $scope.activeStore=function(){
+        //   if($scope.activeList){
+        //     return $scope.activeList.store.name.split(/\W/)[0];
+        //   }
+        // }();
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -340,6 +339,9 @@ Vendable.controller('VendableCtrl',
         searchItemsService.scan($scope.data.keyWord,$scope.activeStore).then(function(response){
           $scope.results=response.slice(0,20)
         });}
+        // var data = angular.fromJson(window.localStorage['colors'])
+        // data.splice(7,1);
+        // window.localStorage['colors']=angular.toJson(data);
       }
 
       $scope.addItem=function(item){
@@ -362,12 +364,12 @@ Vendable.controller('VendableCtrl',
         $scope.calculate();
       }
 
-      $scope.activeColor;
 
       $scope.changeColor=function(){
-        $scope.activeColor = ColorWheel.shiftOne();
+        // $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
+      $scope.activeColor;
 
       $scope.showButtons=true;
 
