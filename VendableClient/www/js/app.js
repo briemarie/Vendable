@@ -47,7 +47,11 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord, store){
-            return $http.get('hhttps://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
+
+            // return $http.get('hhttps://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
+
+              console.log("here")
+            return $http.get('http://192.168.0.86:3000/'+keyWord+'&'+store)
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -184,7 +188,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.setActiveStore = function(store,$event){
         $scope.activeStore=store;
-        $scope.activeStore.name=store.name.toLowerCase().replace(' supermarket',"");
+        $scope.activeStore.name=$scope.activeList.store.name.split(/\W/)[0];;
         console.log($scope.activeStore);
         $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
         $scope.openPopover($event)
@@ -318,6 +322,7 @@ Vendable.controller('VendableCtrl',
 
 
 
+
         $scope.activeStore=function(){
           // window.localStorage.clear()
           if($scope.activeList){
@@ -325,12 +330,8 @@ Vendable.controller('VendableCtrl',
           }
         }();
 
-        $scope.activeStore=function(){
-          // window.localStorage.clear()/
-          if($scope.activeList){
-            return $scope.activeList.store.name.split(/\W/)[0];
-          }
-        }();
+
+        $scope.activeStore=$scope.activeList.store
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -367,8 +368,9 @@ Vendable.controller('VendableCtrl',
       $scope.results=[];
 
       $scope.search=function(){
+        console.log($scope.activeStore.name)
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord,$scope.activeStore).then(function(response){
+        searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
           $scope.results=response.slice(0,20)
         });}
         // var data = angular.fromJson(window.localStorage['colors'])
@@ -418,7 +420,8 @@ Vendable.controller('VendableCtrl',
           var list = $scope.activeList.items;
           $scope.activeList['total'] = 0;
           for (i in list){
-            $scope.activeList.total += list[i].price*1;
+            $scope.activeList.total += round(list[i].price*100);
+            console.log($scope.activeList.total);
           }
         }
         console.log($scope.activeList);
