@@ -94,7 +94,8 @@ Vendable.factory('Lists',function(){
         id:id,
         title:listName,
         items:[],
-        store: store
+        store: store,
+        total: 0
       }
     },
 
@@ -120,7 +121,8 @@ Vendable.factory('Lists',function(){
 
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
-    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http){
+    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover){
+      
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
@@ -181,12 +183,12 @@ Vendable.controller('VendableCtrl',
       });
 
 
-      $scope.setActiveStore = function(store){
+      $scope.setActiveStore = function(store,$event){
         $scope.activeStore=store;
         $scope.activeStore.name=store.name.toLowerCase().replace(' supermarket',"");
         console.log($scope.activeStore);
         $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
-        $scope.closeModal()
+        $scope.openPopover($event)
       }
 //-------------------------MAP----------------------------------------------------------------
       $ionicModal.fromTemplateUrl("templates/map_modal.html", {
@@ -196,15 +198,35 @@ Vendable.controller('VendableCtrl',
          $scope.modalMap = modal
        })
 
-       // $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
-       //    scope: $scope,
-       //    animation: 'slide-in-up'
-       //  }).then(function(modal){
-       //    $scope.modalMap = modal
-       //  })
+       $ionicPopover.fromTemplateUrl('templates/popover.html', {
+          scope: $scope,
+        }).then(function(popover) {
+          $scope.popover = popover;
+        });
 
 
-       $scope.openMap = function() {
+       $scope.openPopover = function($event) {
+         $scope.popover.show($event);
+       };
+
+       $scope.closePopover = function(lat, lng) {
+         $scope.popover.hide();
+
+       };
+
+       $scope.$on('popover.hidden', function() {
+          console.log($scope.activeStore)
+          var store = $scope.activeStore
+          drawRoute(store.location.latitude, store.location.longitude)
+        });
+
+       // var route = function(lat, lng) {
+       //   drawRoute(lat, lng)
+       // };
+
+
+       $scope.openMap = function(flag) {
+          console.log(flag)
           $scope.modalMap.show();
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(drawMap)
@@ -219,6 +241,7 @@ Vendable.controller('VendableCtrl',
           $scope.modalMap.hide();
         }
 
+
         // $scope.getLocation = function() {
         //   if (navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(drawMap)
@@ -228,9 +251,9 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-           var initLat = position.coords.latitude
-           var initLng = position.coords.longitude
-           var map = new GMaps({
+           $scope.initLat = position.coords.latitude
+           $scope.initLng = position.coords.longitude
+          map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -256,7 +279,10 @@ Vendable.controller('VendableCtrl',
             }
           }
 
-          setMarker(initLat, initLng, "I'm hungry!!", 'user')
+          setMarker($scope.initLat, $scope.initLng, 'Fuck my life', 'user')
+
+
+          // console.log($scope.activeList.items[1].price)
 
           $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
@@ -269,7 +295,11 @@ Vendable.controller('VendableCtrl',
         }
 
 
-        // $scope.activeStore=$scope.activeList.store.name;
+        $scope.activeStore=function(){
+          if($scope.activeList){
+            return $scope.activeList.store.name.split(/\W/)[0];
+          }
+        }();
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -279,6 +309,20 @@ Vendable.controller('VendableCtrl',
         //   })
         // }
 //--------------------------------------------------------------------END OF MAP
+
+        var drawRoute= function(desLat, desLng){
+          map.drawRoute({
+            origin: [$scope.initLat, $scope.initLng],
+            destination: [desLat,desLng],
+            travelMode: 'driving',
+            strokeColor: '#0066FF',
+            strokeOpacity: 1,
+            strokeWeight: 6
+          });
+        }
+
+
+//-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
       };
@@ -293,14 +337,16 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
+        searchItemsService.scan($scope.data.keyWord,$scope.activeStore).then(function(response){
           $scope.results=response.slice(0,20)
         });}
       }
 
       $scope.addItem=function(item){
+        console.log(item);
         $scope.activeList.items.push((JSON.parse(JSON.stringify(item))))
         Lists.save($scope.lists);
+        document.querySelector('#search-input').value=null;
         $scope.closeSearchModal();
         $scope.calculate();
       }
@@ -312,14 +358,14 @@ Vendable.controller('VendableCtrl',
         var index = $scope.lists.indexOf(list);
         $scope.lists[index].items.splice(indexItem,1);
         Lists.save($scope.lists);
-        $scope.selectList($scope.lists[0]);
+        $scope.selectList($scope.activeList);
         $scope.calculate();
       }
 
       $scope.activeColor;
 
       $scope.changeColor=function(){
-        // $scope.activeColor = ColorWheel.shiftOne();
+        $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
 
@@ -333,15 +379,13 @@ Vendable.controller('VendableCtrl',
         }
       }
 
-      $scope.total;
+      // $scope.total= $scope.activeList.total || 0;
       $scope.calculate=function(){
-          var length = list.items.length;
-          var total = 0;
-          for (var i = 0; i<length; i++) {
-            number = parseFloat(list.items[i].price)
-            total += number
+          var list = $scope.activeList.items;
+          $scope.activeList['total'] = 0;
+          for (i in list){
+            $scope.activeList.total += list[i].price*1;
           }
-          $scope.total = total.toFixed(2)
         }
         console.log($scope.activeList);
 }

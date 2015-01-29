@@ -7,8 +7,9 @@
       <div id="mapG" data-tab-disable="true">
 
       </div>
-      <div class='list card'>
-        <a ui-sref="new-list" class="item item-icon-left" ng-click="setActiveStore(store)" ng-repeat="store in stores">
+
+      <div class='list card'  ng-repeat="store in stores" >
+        <a ui-sref="all_list" class="item item-icon-left" ng-click="setActiveStore(store, $event)" >
           <i class="icon ion-ios-cart-outline"></i>
           <h3>{{store.name}}</h3>
         </a>
