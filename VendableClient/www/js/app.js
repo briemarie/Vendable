@@ -46,13 +46,8 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 
 Vendable.factory('searchItemsService',function($http){
       return{
-<<<<<<< HEAD
             scan:function(keyWord,store){
-            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+"&"+store)
-=======
-            scan:function(keyWord){
-            return $http.get('http://aqueous-beyond-9351.herokuapp.com/'+keyWord+'&safeway')
->>>>>>> 2a435a4770201baad1cbbf875f8b3c4ef707fec3
+            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&safeway')
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -262,7 +257,7 @@ Vendable.controller('VendableCtrl',
 
           // console.log($scope.activeList.items[1].price)
           // $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
-          $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
@@ -296,7 +291,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
+        searchItemsService.scan($scope.data.keyWord).then(function(response){
           $scope.results=response.slice(0,20)
         });}
       }
