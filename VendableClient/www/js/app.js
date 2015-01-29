@@ -183,6 +183,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.setActiveStore = function(store){
         $scope.activeStore=store;
+        $scope.activeStore.name=store.name.toLowerCase().replace(' supermarket',"");
         console.log($scope.activeStore);
         $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
         $scope.closeModal()
@@ -292,7 +293,6 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        // console.log($scope.activeStore)
         searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
           $scope.results=response.slice(0,20)
         });}
