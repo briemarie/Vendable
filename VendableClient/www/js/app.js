@@ -46,8 +46,9 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 
 Vendable.factory('searchItemsService',function($http){
       return{
-            scan:function(keyWord,store){
-            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&safeway')
+            scan:function(keyWord, store){
+            console.log(store);
+            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -88,12 +89,12 @@ Vendable.factory('Lists',function(){
       window.localStorage['lists']=angular.toJson(lists);
     },
 
-    newList:function(listName,id){
+    newList:function(listName,id, store){
       return{
         id:id,
         title:listName,
         items:[],
-        store:{}
+        store: store
       }
     },
 
@@ -130,15 +131,16 @@ Vendable.controller('VendableCtrl',
           return $scope.lists[$scope.lists.length-1].id+1
           }
         };
+        // console.log($scope.activeStore)
         var newList=Lists.newList(listName,id(),$scope.activeStore);
+        console.log(newList)
         $scope.lists.push(newList);
         Lists.save($scope.lists);
         $scope.selectList(newList);
       }
 
-      $scope.activeList=$scope.lists[Lists.getLastActiveList()] || {};
+      $scope.activeList=$scope.lists[Lists.getLastActiveList()];
 
-      console.log($scope.activeList)
 
       $scope.addList=function(listName){
         var listName=listName;
@@ -267,7 +269,8 @@ Vendable.controller('VendableCtrl',
          })
         }
 
-        $scope.activeStore;
+
+        // $scope.activeStore=$scope.activeList.store.name;
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -291,22 +294,28 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord).then(function(response){
+        // console.log($scope.activeStore)
+        searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
           $scope.results=response.slice(0,20)
         });}
       }
 
       $scope.addItem=function(item){
-        $scope.activeList.items.push(item)
+        $scope.activeList.items.push((JSON.parse(JSON.stringify(item))))
         Lists.save($scope.lists);
+        $scope.closeSearchModal();
+        $scope.calculate();
       }
 
       $scope.deleteItem=function(item){
+        console.log($scope.activeList)
         var list = $scope.activeList;
         var indexItem = list.items.indexOf(item)
         var index = $scope.lists.indexOf(list);
         $scope.lists[index].items.splice(indexItem,1);
-        $scope.selectList($scope.list[0])
+        Lists.save($scope.lists);
+        $scope.selectList($scope.lists[0]);
+        $scope.calculate();
       }
 
       $scope.activeColor;
@@ -325,6 +334,18 @@ Vendable.controller('VendableCtrl',
           $scope.showButtons=true;
         }
       }
+
+      $scope.total;
+      $scope.calculate=function(){
+          var length = list.items.length;
+          var total = 0;
+          for (var i = 0; i<length; i++) {
+            number = parseFloat(list.items[i].price)
+            total += number
+          }
+          $scope.total = total.toFixed(2)
+        }
+        console.log($scope.activeList);
 }
 // ]
 );

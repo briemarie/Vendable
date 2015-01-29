@@ -2,8 +2,27 @@
   background: url(../img/wood_floor.jpg)
 }
 */
+
+.fr{
+  float: right;
+  display: block;
+  height: 100%;
+  margin: 0;
+}
+
+.fl{
+  float: left;
+  display: block;
+}
+
+.search-item{
+   margin-left: 4em;
+   margin-top: .4em;
+}
 .search-confirm-box{
   display: inline-block;
+  width:100%;
+  text-align: left;
 }
 .slide {
     /*background: url(https://ununsplash.imgix.net/uploads/14132599381062b4d4ede/3b6f33f2?q=75&fm=jpg&s=ada04fb565c23d9c0a3c17c4ca55213d) no-repeat center center fixed;*/
@@ -38,7 +57,7 @@
   height: 5%;
   margin: 5%;
   background-color: transparent;
-  border: 2px solid white;
+  border: 2px solid black;
   display: inline-block;
   border-radius: 5%;
   font-size: 0.4em;
@@ -187,10 +206,9 @@
   padding: 50px;
   margin-top: 10px;
   position: relative;
-  font-family: 'Gochi Hand', cursive;
   text-align: center;
   color: black;
-  background-color: #FFFF00;
+  background-color: #8BEBAC;
 /*  background: -webkit-linear-gradient(#fe6, #f5da41, #f6ef97);*/
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8);
@@ -217,7 +235,6 @@
 .list-page-item {
   border: 0px;
   margin: 5px;
-  font-family: 'Gochi Hand', cursive;
   background-color: #FFFF00;
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
 }
