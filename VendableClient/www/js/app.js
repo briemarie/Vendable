@@ -44,11 +44,11 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 });
 
 
-
 Vendable.factory('searchItemsService',function($http){
       return{
-            scan:function(keyWord){
-            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&safeway')
+            scan:function(keyWord, store){
+            console.log(store);
+            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -59,9 +59,9 @@ Vendable.factory('searchItemsService',function($http){
 
 Vendable.factory('ColorWheel',function(){
   window.localStorage['colors'] = angular.toJson([
-                                  'FFC444', '0CE885', 'A2BCFF', 'E8C05B',
+                                  '0CE885', 'A2BCFF', 'E8C05B',
                                   'E8E5B9', 'FF8C0D', '8BE8AC', 'E85542',
-                                  'D9E852', '75E8C6']);
+                                  , '75E8C6']);
   return {
     shiftOne:function(){
       var colors = angular.fromJson(window.localStorage['colors']);
@@ -89,12 +89,13 @@ Vendable.factory('Lists',function(){
       window.localStorage['lists']=angular.toJson(lists);
     },
 
-    newList:function(listName,id){
+    newList:function(listName,id, store){
       return{
         id:id,
         title:listName,
         items:[],
-        store:{}
+        store: store,
+        total: 0
       }
     },
 
@@ -120,7 +121,8 @@ Vendable.factory('Lists',function(){
 
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
-    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http){
+    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover){
+      
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
@@ -131,13 +133,16 @@ Vendable.controller('VendableCtrl',
           return $scope.lists[$scope.lists.length-1].id+1
           }
         };
-        var newList=Lists.newList(listName,id());
+        // console.log($scope.activeStore)
+        var newList=Lists.newList(listName,id(),$scope.activeStore);
+        console.log(newList)
         $scope.lists.push(newList);
         Lists.save($scope.lists);
         $scope.selectList(newList);
       }
 
       $scope.activeList=$scope.lists[Lists.getLastActiveList()];
+
 
       $scope.addList=function(listName){
         var listName=listName;
@@ -176,7 +181,16 @@ Vendable.controller('VendableCtrl',
       }).then(function(modal){
         $scope.modalSearch = modal //This change the modal of the scope
       });
-//-------------------------------------------
+
+
+      $scope.setActiveStore = function(store,$event){
+        $scope.activeStore=store;
+        $scope.activeStore.name=store.name.toLowerCase().replace(' supermarket',"");
+        console.log($scope.activeStore);
+        $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
+        $scope.openPopover($event)
+      }
+//-------------------------MAP----------------------------------------------------------------
       $ionicModal.fromTemplateUrl("templates/map_modal.html", {
          scope: $scope,
          animation: 'slide-in-up'
@@ -184,15 +198,35 @@ Vendable.controller('VendableCtrl',
          $scope.modalMap = modal
        })
 
-       $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
+       $ionicPopover.fromTemplateUrl('templates/popover.html', {
           scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function(modal){
-          $scope.modalMap = modal
-        })
+        }).then(function(popover) {
+          $scope.popover = popover;
+        });
 
 
-       $scope.openMap = function() {
+       $scope.openPopover = function($event) {
+         $scope.popover.show($event);
+       };
+
+       $scope.closePopover = function(lat, lng) {
+         $scope.popover.hide();
+
+       };
+
+       $scope.$on('popover.hidden', function() {
+          console.log($scope.activeStore)
+          var store = $scope.activeStore
+          drawRoute(store.location.latitude, store.location.longitude)
+        });
+
+       // var route = function(lat, lng) {
+       //   drawRoute(lat, lng)
+       // };
+
+
+       $scope.openMap = function(flag) {
+          console.log(flag)
           $scope.modalMap.show();
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(drawMap)
@@ -202,16 +236,11 @@ Vendable.controller('VendableCtrl',
           }
         }
 
-        $scope.setActiveStore = function(store){
-          $scope.activeStore=store;
-          $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
-          $scope.closeModal()
-        }
-
 
         $scope.closeModal = function(){
           $scope.modalMap.hide();
         }
+
 
         // $scope.getLocation = function() {
         //   if (navigator.geolocation) {
@@ -222,9 +251,9 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-           var initLat = position.coords.latitude
-           var initLng = position.coords.longitude
-           var map = new GMaps({
+           $scope.initLat = position.coords.latitude
+           $scope.initLng = position.coords.longitude
+          map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -250,17 +279,11 @@ Vendable.controller('VendableCtrl',
             }
           }
 
-          setMarker(initLat, initLng, "I'm hungry!!", 'user')
+          setMarker($scope.initLat, $scope.initLng, 'Fuck my life', 'user')
 
-          var list = $scope.activeList
-          var length = list.items.length
-          var total = 0
-          for (var i = 0; i<length; i++) {
-            number = parseFloat(list.items[i].price)
-            total += number
-          }
-          $scope.total = total.toFixed(2)
+
           // console.log($scope.activeList.items[1].price)
+
           $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
@@ -271,7 +294,12 @@ Vendable.controller('VendableCtrl',
          })
         }
 
-        $scope.activeStore;
+
+        $scope.activeStore=function(){
+          if($scope.activeList){
+            return $scope.activeList.store.name.split(/\W/)[0];
+          }
+        }();
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -280,6 +308,20 @@ Vendable.controller('VendableCtrl',
         //     ln: -71.0983
         //   })
         // }
+//--------------------------------------------------------------------END OF MAP
+
+        var drawRoute= function(desLat, desLng){
+          map.drawRoute({
+            origin: [$scope.initLat, $scope.initLng],
+            destination: [desLat,desLng],
+            travelMode: 'driving',
+            strokeColor: '#0066FF',
+            strokeOpacity: 1,
+            strokeWeight: 6
+          });
+        }
+
+
 //-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
@@ -295,28 +337,35 @@ Vendable.controller('VendableCtrl',
 
       $scope.search=function(){
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord).then(function(response){
+        searchItemsService.scan($scope.data.keyWord,$scope.activeStore).then(function(response){
           $scope.results=response.slice(0,20)
         });}
       }
 
       $scope.addItem=function(item){
-        $scope.activeList.items.push(item)
+        console.log(item);
+        $scope.activeList.items.push((JSON.parse(JSON.stringify(item))))
         Lists.save($scope.lists);
+        document.querySelector('#search-input').value=null;
+        $scope.closeSearchModal();
+        $scope.calculate();
       }
 
       $scope.deleteItem=function(item){
+        console.log($scope.activeList)
         var list = $scope.activeList;
         var indexItem = list.items.indexOf(item)
         var index = $scope.lists.indexOf(list);
         $scope.lists[index].items.splice(indexItem,1);
-        $scope.selectList($scope.list[0])
+        Lists.save($scope.lists);
+        $scope.selectList($scope.activeList);
+        $scope.calculate();
       }
 
       $scope.activeColor;
 
       $scope.changeColor=function(){
-        // $scope.activeColor = ColorWheel.shiftOne();
+        $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
 
@@ -329,6 +378,16 @@ Vendable.controller('VendableCtrl',
           $scope.showButtons=true;
         }
       }
+
+      // $scope.total= $scope.activeList.total || 0;
+      $scope.calculate=function(){
+          var list = $scope.activeList.items;
+          $scope.activeList['total'] = 0;
+          for (i in list){
+            $scope.activeList.total += list[i].price*1;
+          }
+        }
+        console.log($scope.activeList);
 }
 // ]
 );
