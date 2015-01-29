@@ -329,20 +329,16 @@ Vendable.controller('VendableCtrl',
         //   }
         // }();
 
-        $scope.activeStore=function(){
-          // window.localStorage.clear()
-          if($scope.activeList){
-            return $scope.activeList.store.name.split(/\W/)[0];
-          }
-        }();
+        // $scope.activeStore=function(){
+        //   if($scope.activeList){
+        //     return $scope.activeList.store.name.split(/\W/)[0];
+        //   }
+        // }();
 
 
-<<<<<<< HEAD
-        $scope.activeStore=$scope.activeList.store
+
+        // $scope.activeStore=$scope.activeList.store
         
-=======
-
->>>>>>> 5c03fbfc0accdf04b89abe550251dbe9166300a5
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
         //     el: '#panorama',
@@ -410,7 +406,7 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.changeColor=function(){
-        // $scope.activeColor = ColorWheel.shiftOne();
+        $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
       $scope.activeColor;
@@ -425,7 +421,7 @@ Vendable.controller('VendableCtrl',
         }
       }
 
-      // $scope.total= $scope.activeList.total || 0;
+      // $scope.total= $scope.activeList.total;
       $scope.calculate=function(){
           var list = $scope.activeList.items;
           $scope.activeList['total'] = 0;
