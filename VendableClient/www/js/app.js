@@ -121,7 +121,7 @@ Vendable.factory('Lists',function(){
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
     function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover){
-      
+
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
@@ -294,11 +294,19 @@ Vendable.controller('VendableCtrl',
         }
 
 
-        // $scope.activeStore=function(){
-        //   if($scope.activeList){
-        //     return $scope.activeList.store.name.split(/\W/)[0];
-        //   }
-        // }();
+
+        $scope.activeStore=function(){
+          if($scope.activeList){
+            return $scope.activeList.store.name.split(/\W/)[0];
+          }
+        }();
+
+        $scope.activeStore=function(){
+          // window.localStorage.clear()/
+          if($scope.activeList){
+            return $scope.activeList.store.name.split(/\W/)[0];
+          }
+        }();
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({

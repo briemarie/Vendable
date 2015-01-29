@@ -134,6 +134,7 @@
   background-color: #E85542;
   border: 10px;
   border-radius: 49%;
+  float: right;
 }
 
 .list-page-checkbox {
