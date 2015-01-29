@@ -302,7 +302,7 @@ Vendable.controller('VendableCtrl',
         //   }
         // }();
 
-        $scope.activeStore=$scope.activeList.store
+        // $scope.activeStore=$scope.activeList.store
 
 
         // $scope.showPanaroma = function(la, ln){
