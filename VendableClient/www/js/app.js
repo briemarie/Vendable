@@ -48,7 +48,7 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-            return $http.get('http://aqueous-beyond-9351.herokuapp.com/'+keyWord+'&safeway')
+            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&safeway')
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -120,7 +120,7 @@ Vendable.factory('Lists',function(){
 
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
-    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http){
+    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover){
       $scope.lists=Lists.all();//This is an array
 
       var createList=function(listName){
@@ -184,15 +184,26 @@ Vendable.controller('VendableCtrl',
          $scope.modalMap = modal
        })
 
-       $ionicModal.fromTemplateUrl("templates/panorama_modal.html", {
+       $ionicPopover.fromTemplateUrl('templates/popover.html', {
           scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function(modal){
-          $scope.modalMap = modal
-        })
+        }).then(function(popover) {
+          $scope.popover = popover;
+        });
+
+       $scope.openPopover = function($event) {
+         $scope.popover.show($event);
+       };
+       $scope.closePopover = function() {
+         $scope.popover.hide();
+       };
+
+       $scope.$on('popover.hidden', function() {
+          drawRoute(store.location.latitude, store.location.longitude)
+        });
 
 
-       $scope.openMap = function() {
+       $scope.openMap = function(flag) {
+          console.log(flag)
           $scope.modalMap.show();
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(drawMap)
@@ -202,16 +213,17 @@ Vendable.controller('VendableCtrl',
           }
         }
 
+
         $scope.setActiveStore = function(store){
           $scope.activeStore=store;
           $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
-          $scope.closeModal()
         }
 
 
         $scope.closeModal = function(){
           $scope.modalMap.hide();
         }
+
 
         // $scope.getLocation = function() {
         //   if (navigator.geolocation) {
@@ -222,9 +234,9 @@ Vendable.controller('VendableCtrl',
         //   }
         // }
         var drawMap = function(position){
-           var initLat = position.coords.latitude
-           var initLng = position.coords.longitude
-           var map = new GMaps({
+           $scope.initLat = position.coords.latitude
+           $scope.initLng = position.coords.longitude
+          map = new GMaps({
             div: '#mapG',
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -250,7 +262,7 @@ Vendable.controller('VendableCtrl',
             }
           }
 
-          setMarker(initLat, initLng, 'Fuck my life', 'user')
+          setMarker($scope.initLat, $scope.initLng, 'Fuck my life', 'user')
 
           var list = $scope.activeList
           var length = list.items.length
@@ -261,7 +273,7 @@ Vendable.controller('VendableCtrl',
           }
           $scope.total = total.toFixed(2)
           // console.log($scope.activeList.items[1].price)
-          $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
@@ -271,15 +283,18 @@ Vendable.controller('VendableCtrl',
          })
         }
 
-        $scope.activeStore;
+        var drawRoute= function(desLat, desLng){
+          map.drawRoute({
+            origin: [$scope.initLat, $scope.initLng],
+            destination: [desLat,desLng],
+            travelMode: 'driving',
+            strokeColor: '#0066FF',
+            strokeOpacity: 1,
+            strokeWeight: 6
+          });
+        }
 
-        // $scope.showPanaroma = function(la, ln){
-        //   var panorama = GMaps.createPanorama({
-        //     el: '#panorama',
-        //     lat: 42.3455,
-        //     ln: -71.0983
-        //   })
-        // }
+
 //-------------------------------------------------
       $scope.openSearchModal = function(){
         $scope.modalSearch.show()
