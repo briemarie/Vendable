@@ -109,17 +109,18 @@
 }
 
 .homebutton{
-  background-color: black;
+  background-color: #8BE8AC;
   border-radius: 49%;
 }
 
 .deletebutton {
-  background-color: #FF5050;
+  background-color: #E85542;
+  border: 10px;
   border-radius: 49%;
 }
 
 .list-page-checkbox {
-  background-color: #00FF00;
+  background-color: #A2BCFF;
   border-radius: 49%;
 }
 
@@ -179,7 +180,7 @@
   line-height: 1px;
 }
 
-#note {
+.note {
   width: 100%;
   padding: 50px;
   margin-top: 10px;
@@ -187,7 +188,7 @@
   font-family: 'Gochi Hand', cursive;
   text-align: center;
   color: black;
-  background-color: #FFFF00;
+  background-color: #FFFF9E;
 /*  background: -webkit-linear-gradient(#fe6, #f5da41, #f6ef97);*/
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8);
@@ -195,7 +196,7 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8), inset 0 6px 6px rgba(0, 0, 0, .1);
 }
 
-#note:before {
+.note:before {
   content: '';
   display: block;
   position: absolute;
@@ -203,7 +204,7 @@
   z-index: -1;
 }
 
-#note:after {
+.note:after {
   content: '';
   display: block;
   position: absolute;
@@ -215,9 +216,35 @@
   border: 0px;
   margin: 5px;
   font-family: 'Gochi Hand', cursive;
-  background-color: #FFFF00;
+  background-color: #FFFF9E;
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
 }
+
+.side-with-pic {
+    background: url(../img/fruit.png);
+}
+
+.opaque {
+  opacity: 0.8;
+}
+
+.note-box {
+  opacity: 0.6;
+}
+
+.vege {
+  background: url(../img/box.png);
+}
+
+.transparent-box {
+  opacity: 0.6;
+}
+
+.no-border-search {
+  border: 0;
+  margin: 0;
+}
+
 
 
 

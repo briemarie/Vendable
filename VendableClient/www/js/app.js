@@ -48,7 +48,7 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord){
-            return $http.get('http://lit-ravine-6515.herokuapp.com/yelp/'+keyWord+'&safeway')
+            return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&safeway')
             // return $http.get("http://localhost:9393")
                     .then(function(response){
                       return response.data;
@@ -261,7 +261,7 @@ Vendable.controller('VendableCtrl',
           }
           $scope.total = total.toFixed(2)
           // console.log($scope.activeList.items[1].price)
-          $http.get('http://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
