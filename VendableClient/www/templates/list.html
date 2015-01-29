@@ -14,7 +14,7 @@
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
             <div id="note">
-              <ion-item ng-repeat="item in activeList.items">
+              <ion-item class="list-page-item" ng-repeat="item in activeList.items">
               <div class='row'>
                 <div class='col-25'>
                   <label class="checkbox list-page-checkbox">
@@ -33,8 +33,8 @@
               </div>
               </ion-item>
             </div>
-            </ion-list>
-            <a href="#" class="item item-icon-left">
+            </ion-list >
+            <a href="#" class="item item-icon-left list-page-item">
               <i class="icon ion-social-usd "></i>
                 <h3>Grocery Total: {{total}}</h3>
             </a>
@@ -54,7 +54,7 @@
           <ion-content>
           <ion-list>
           <div ng-repeat="list in lists">
-            <ion-item ng-click="selectList(list,list.id)">{{list.title}}
+            <ion-item class="list-page-item" ng-click="selectList(list,list.id)">{{list.title}}
             <button class="deletebutton" ng-click="deleteList(list)">X</button></ion-item>
           </div>
           </ion-list>
