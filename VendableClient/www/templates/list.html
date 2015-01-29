@@ -35,12 +35,14 @@
               </div>
               </ion-item>
             </div>
-
             </ion-list>
-            <a href="#" class="item item-icon-left list-page-item">
-              <i class="icon ion-social-usd "></i>
-                <h3>Grocery Total: {{total}}</h3>
-            </a>
+
+              <a href="#" class="item item-icon-left total-price">
+                <i class="icon ion-social-usd total-price"></i>
+                  <h3 class="total-price">Grocery Total: {{total}}</h3>
+              </a>
+
+
 
             <button class="button button-block button-balanced" ng-click="openSearchModal()">Add Items</button>
             <a class="button button-block button-balanced" ng-href={{activeStore.laln}}>Directions to Store</a>
