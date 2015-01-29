@@ -1,4 +1,5 @@
-  <ion-modal-view>
+<div class="opaque">
+  <ion-modal-view class="side-with-pic">
     <ion-header-bar class="bar-balanced">
       <h1 class="title">Give your list a name</h1>
       <button class="button">Store: {{activeStore.name}}</button>
@@ -14,8 +15,16 @@
         <input type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
         <button id="addButton" class= "button button-full button-energized" ng-click="addList(listName)"  ui-sref='list'> + </button>
       </form> -->
+<!-- =======
+    <div id="new-list-container" >
+      <form name="nameListForm">
+        <input class= "note note-box" type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
+        <button id="addButton" class= "button button-full button-balanced" ng-click="addList(listName)"  ui-sref='list'> Add List</button>
+      </form>
+>>>>>>> 8c4d86cfe3b840750c78bebe7d95fb96bfd8f756 -->
     </div>
     </ion-content>
   </ion-modal-view>
+</div>
 
 

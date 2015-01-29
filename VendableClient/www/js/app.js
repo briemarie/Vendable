@@ -240,7 +240,7 @@ Vendable.controller('VendableCtrl',
               lat: la,
               lng: ln,
               infoWindow: {
-                content: '<h4>'+info+'</h4><img src="http://media.tumblr.com/tumblr_m7hu22giDp1rqxe4o.jpg">'
+                content: '<h4>'+info+'</h4><img src="../img/store-icons/'+info+'.png">'
               },
               icon: icons[origin].icon
             });
@@ -251,14 +251,12 @@ Vendable.controller('VendableCtrl',
               icon: '../img/map-icons/pins/48/pin6.png'
             },
             supermarket: {
-              icon: "../img/map-icons/pins/48/pin9.png"
+              icon: '../img/map-icons/pins/48/pin9.png'
             }
           }
 
-          setMarker(initLat, initLng, 'Fuck my life', 'user')
+          setMarker(initLat, initLng, "I'm hungry!!", 'user')
 
-          // console.log($scope.activeList.items[1].price)
-          // $http.get('http://aqueous-beyond-9351.herokuapp.com/food/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
           $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){

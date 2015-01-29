@@ -13,10 +13,17 @@
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
-            <div id="note">
+
+            <div class="note with-padding">
+
               <ion-item class="list-page-item" ng-repeat="item in activeList.items">
               <div class='row'>
-                <div class='col-50'>
+                <div class='col-25'>
+                  <label class="checkbox list-page-checkbox">
+                    <input type="checkbox">
+                  </label>
+                </div>
+                <div class='col-25'>
                   <p>{{item.item}}<p>
                 </div>
                 <div class='col-25'>
@@ -28,13 +35,14 @@
               </div>
               </ion-item>
             </div>
-            </ion-list>
-            <a href="#" class="item item-icon-left list-page-item" >
+
+            </ion-list >
+            <a href="#" class="item item-icon-left list-page-item">
               <i class="icon ion-social-usd "></i>
                 <h3>Grocery Total: {{total}}</h3>
             </a>
-            <button class="button button-block button-energized" ng-click="openSearchModal()">Add Items</button>
-            <a class="button button-block button-energized" ng-href={{activeStore.laln}}>Direction to Store</a>
+            <button class="button button-block button-balanced" ng-click="openSearchModal()">Add Items</button>
+            <a class="button button-block button-balanced" ng-href={{activeStore.laln}}>Direction to Store</a>
             <h1>{{activeStore}}</h1>
           </ion-content>
         </ion-side-menu-content>
@@ -49,7 +57,7 @@
           <ion-content>
           <ion-list>
           <div ng-repeat="list in lists">
-            <ion-item ng-click="selectList(list,list.id)">{{list.title}}
+            <ion-item class="list-page-item" ng-click="selectList(list,list.id)">{{list.title}}
             <button class="deletebutton" ng-click="deleteList(list)">X</button></ion-item>
           </div>
           </ion-list>
