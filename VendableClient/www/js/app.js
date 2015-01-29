@@ -59,9 +59,9 @@ Vendable.factory('searchItemsService',function($http){
 
 Vendable.factory('ColorWheel',function(){
   window.localStorage['colors'] = angular.toJson([
-                                  'FFC444', '0CE885', 'A2BCFF', 'E8C05B',
+                                  '0CE885', 'A2BCFF', 'E8C05B',
                                   'E8E5B9', 'FF8C0D', '8BE8AC', 'E85542',
-                                  'D9E852', '75E8C6']);
+                                  , '75E8C6']);
   return {
     shiftOne:function(){
       var colors = angular.fromJson(window.localStorage['colors']);
