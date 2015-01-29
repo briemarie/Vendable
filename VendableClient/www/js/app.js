@@ -193,13 +193,21 @@ Vendable.controller('VendableCtrl',
        $scope.openPopover = function($event) {
          $scope.popover.show($event);
        };
-       $scope.closePopover = function() {
+
+       $scope.closePopover = function(lat, lng) {
          $scope.popover.hide();
+
        };
 
        $scope.$on('popover.hidden', function() {
+          console.log($scope.activeStore)
+          var store = $scope.activeStore
           drawRoute(store.location.latitude, store.location.longitude)
         });
+
+       // var route = function(lat, lng) {
+       //   drawRoute(lat, lng)
+       // };
 
 
        $scope.openMap = function(flag) {
@@ -214,9 +222,11 @@ Vendable.controller('VendableCtrl',
         }
 
 
-        $scope.setActiveStore = function(store){
-          $scope.activeStore=store;
-          $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
+        $scope.setActiveStore = function(store, $event){
+            console.log('im here')
+            $scope.activeStore=store;
+            $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
+            $scope.openPopover($event)
         }
 
 
