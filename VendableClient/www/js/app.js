@@ -47,6 +47,9 @@ Vendable.config(function($stateProvider, $urlRouterProvider){
 Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord, store){
+
+            // return $http.get('hhttps://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
+
               console.log("here")
             return $http.get('http://192.168.0.86:3000/'+keyWord+'&'+store)
             // return $http.get("http://localhost:9393")
@@ -122,7 +125,7 @@ Vendable.factory('Lists',function(){
 
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
-    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover){
+    function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover, $ionicPopup){
 
       $scope.lists=Lists.all();//This is an array
 
@@ -210,20 +213,42 @@ Vendable.controller('VendableCtrl',
          $scope.popover.show($event);
        };
 
-       $scope.closePopover = function(lat, lng) {
+       $scope.closePopover = function() {
          $scope.popover.hide();
-
        };
 
        $scope.$on('popover.hidden', function() {
-          console.log($scope.activeStore)
+          // console.log($scope.activeStore)
           var store = $scope.activeStore
           drawRoute(store.location.latitude, store.location.longitude)
         });
 
-       // var route = function(lat, lng) {
-       //   drawRoute(lat, lng)
-       // };
+       $scope.getDirections = function(mode){
+          var store = $scope.activeStore
+          $http.get('http://192.168.0.86:3000/directions/'+$scope.initLat+','+$scope.initLng+'&'+store.location.latitude+','+store.location.longitude+'&'+mode).success(function(response){
+            console.log(response.duration.text, response.distance.text, response.end)
+            $scope.showConfirm(response.duration.text, response.distance.text, response.end)
+          })
+
+      $scope.showConfirm = function(duration, distance, address) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Your Itynerary',
+          template: 'Distance:'+distance+'Duration:'+duration+'Destination address:'+address
+        });
+        confirmPopup.then(function(res) {
+          if(res) {
+            $scope.popover.hide();
+          } else {
+            $scope.popover.hide();
+          }
+        });
+      };
+         // if(mode === 'driving') {
+         //  $http.get('https://lit-ravine-6515.herokuapp.com/directions/?origin='+$scope.initLat+','+$scope.initLng+'&destination='+store.location.latitude+','+store.location.longitude+'&mode='+mode)
+          // $http.get('https://maps.googleapis.com/maps/api/directions/json?origin='+$scope.initLat+','+$scope.initLng+'&destination='+store.location.latitude+','+store.location.longitude+'&key=AIzaSyC5sxp6CP5nv9xKsqMYOOeo5z5WEcz7Vbo&sensor=false').success(function(response){console.log(response)
+         //  })
+         // }
+       }
 
 
        $scope.openMap = function(flag) {
@@ -285,13 +310,14 @@ Vendable.controller('VendableCtrl',
 
           // console.log($scope.activeList.items[1].price)
 
-          $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
               setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name, "supermarket")
             }
           $scope.stores = response
+          console.log($scope.stores)
          })
         }
 
@@ -302,9 +328,17 @@ Vendable.controller('VendableCtrl',
         //     return $scope.activeList.store.name.split(/\W/)[0];
         //   }
         // }();
-        console.log($scope.activeList)
-        $scope.activeStore = $scope.activeList;
 
+        $scope.activeStore=function(){
+          // window.localStorage.clear()
+          if($scope.activeList){
+            return $scope.activeList.store.name.split(/\W/)[0];
+          }
+        }();
+
+
+        $scope.activeStore=$scope.activeList.store
+        
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
         //     el: '#panorama',
@@ -372,7 +406,7 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.changeColor=function(){
-        $scope.activeColor = ColorWheel.shiftOne();
+        // $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
       $scope.activeColor;
