@@ -119,6 +119,7 @@ Vendable.factory('Lists',function(){
   }
 })
 
+
 Vendable.controller('VendableCtrl',
   // ['$scope','$http','$ionicModal',
     function($scope,searchItemsService,ColorWheel, Lists,$ionicModal,$ionicSideMenuDelegate, $http, $ionicPopover){
@@ -301,8 +302,8 @@ Vendable.controller('VendableCtrl',
         //     return $scope.activeList.store.name.split(/\W/)[0];
         //   }
         // }();
-
-        $scope.activeStore=$scope.activeList.store
+        console.log($scope.activeList)
+        $scope.activeStore = $scope.activeList;
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
@@ -391,7 +392,7 @@ Vendable.controller('VendableCtrl',
           var list = $scope.activeList.items;
           $scope.activeList['total'] = 0;
           for (i in list){
-            $scope.activeList.total += round(list[i].price*100);
+            $scope.activeList.total += Math.round(list[i].price*100)/100;
             console.log($scope.activeList.total);
           }
         }
