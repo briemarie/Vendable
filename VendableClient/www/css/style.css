@@ -81,11 +81,6 @@
   width: 100%;
 }
 
-/*
-#panorama {
-  height: 500px;
-  width: 100%;
-}*/
 
 @keyframes animatedBackground {
     0% { background-position: 0 0; }
@@ -212,7 +207,6 @@
   text-align: center;
   color: black;
   background-color: #FFFF9E;
-/*  background: -webkit-linear-gradient(#fe6, #f5da41, #f6ef97);*/
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8);
@@ -238,14 +232,13 @@
 .list-page-item {
   border: 0px;
   margin: 5px;
-  font-family: 'Gochi Hand', cursive;
   background-color: #FFFF9E;
   background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
 }
 
-.side-with-pic {
+/*.side-with-pic {
     background: url(../img/fruit.png);
-}
+}*/
 
 .opaque {
   opacity: 0.8;
@@ -255,19 +248,15 @@
   opacity: 0.6;
 }
 
-.vege {
+/*.vege {
   background: url(../img/box.png);
-}
+}*/
 
 .transparent-box {
   opacity: 0.6;
-/*  background-color: black;*/
 }
-/*
-.no-border-search {
-  border: 0;
-  margin: 0;
-}*/
+
+
 
 .with-padding {
   padding: 50px;
