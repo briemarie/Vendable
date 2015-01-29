@@ -295,18 +295,18 @@ Vendable.controller('VendableCtrl',
 
 
 
-        $scope.activeStore=function(){
-          if($scope.activeList){
-            return $scope.activeList.store.name.split(/\W/)[0];
-          }
-        }();
+        // $scope.activeStore=function(){
+        //   if($scope.activeList){
+        //     return $scope.activeList.store.name.split(/\W/)[0];
+        //   }
+        // }();
 
-        $scope.activeStore=function(){
-          // window.localStorage.clear()/
-          if($scope.activeList){
-            return $scope.activeList.store.name.split(/\W/)[0];
-          }
-        }();
+        // $scope.activeStore=function(){
+        //   // window.localStorage.clear()/
+        //   if($scope.activeList){
+        //     return $scope.activeList.store.name.split(/\W/)[0];
+        //   }
+        // }();
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
