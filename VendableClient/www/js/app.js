@@ -279,7 +279,7 @@ Vendable.controller('VendableCtrl',
             }
           }
 
-          setMarker($scope.initLat, $scope.initLng, 'Fuck my life', 'user')
+          setMarker($scope.initLat, $scope.initLng, 'I am hungry!!', 'user')
 
 
           // console.log($scope.activeList.items[1].price)
