@@ -337,8 +337,12 @@ Vendable.controller('VendableCtrl',
         }();
 
 
+<<<<<<< HEAD
         $scope.activeStore=$scope.activeList.store
         
+=======
+
+>>>>>>> 5c03fbfc0accdf04b89abe550251dbe9166300a5
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
         //     el: '#panorama',
