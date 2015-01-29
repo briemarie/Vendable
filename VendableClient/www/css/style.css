@@ -118,7 +118,7 @@
   border-radius: 49%;
 }
 
-.checkbox {
+.list-page-checkbox {
   background-color: #00FF00;
   border-radius: 49%;
 }
@@ -211,7 +211,7 @@
   z-index: -1;
 }
 
-.item {
+.list-page-item {
   border: 0px;
   margin: 5px;
   font-family: 'Gochi Hand', cursive;
