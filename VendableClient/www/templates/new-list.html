@@ -1,15 +1,17 @@
-  <ion-modal-view>
+<div class="opaque">
+  <ion-modal-view class="side-with-pic">
     <ion-header-bar class="bar-balanced">
       <h1 class="title">Give your list a name</h1>
     </ion-header-bar>
     <ion-content>
     <div id="new-list-container" style="color: balanced">
       <form name="nameListForm">
-        <input id= "note" type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
-        <button id="addButton" class= "button button-full button-energized" ng-click="addList(listName)"  ui-sref='list'> Add List</button>
+        <input class= "note note-box" type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
+        <button id="addButton" class= "button button-full button-balanced" ng-click="addList(listName)"  ui-sref='list'> Add List</button>
       </form>
     </div>
     </ion-content>
   </ion-modal-view>
+</div>
 
 

@@ -1,41 +1,51 @@
 
       <ion-side-menus>
         <ion-side-menu-content>
-          <ion-header-bar class="bar-calm">
+          <ion-header-bar class="bar-balanced">
             <button class="button icon ion-navicon" ng-click="toggleLeft()"></button>
               <h1 class="title">
                 {{activeList.title}}
               </h1>
               <a class="button" ui-sref='home'>Home</a>
-
-              <button class="button icon ion-android-search" ng-click="openSearchModal()"></button>
+              <button class="button icon" ng-click="openMap()">Change Store</button>
           </ion-header-bar>
 
           <ion-content>
             <!-- <button class="button button-full" ng-click="openSearchModal()">Search</button> -->
             <ion-list>
             <div id="note">
-              <ion-item ng-repeat="item in activeList.items">
+              <ion-item class="list-page-item" ng-repeat="item in activeList.items">
               <div class='row'>
-                <div class='col-50'>
+                <div class='col-25'>
+                  <label class="checkbox list-page-checkbox">
+                    <input type="checkbox">
+                  </label>
+                </div>
+                <div class='col-25'>
                   <p>{{item.item}}<p>
                 </div>
                 <div class='col-25'>
                   <p>${{item.price}}<p>
                 </div>
                 <div class='col-25'>
-                  <button class="button" ng-click=deleteItem(item)>Delete</button>
+                  <button class="deletebutton" ng-click=deleteItem(item)>X</button>
                 </div>
               </div>
               </ion-item>
             </div>
-            </ion-list>
-            <button class="button button-block button-positive" ng-click="openMap()">Change Store</button>
+            </ion-list >
+            <a href="#" class="item item-icon-left list-page-item">
+              <i class="icon ion-social-usd "></i>
+                <h3>Grocery Total: {{total}}</h3>
+            </a>
+            <button class="button button-block button-energized" ng-click="openSearchModal()">Add Items</button>
+            <a class="button button-block button-energized" ng-href={{activeStore.laln}}>Direction to Store</a>
+            <h1>{{activeStore}}</h1>
           </ion-content>
         </ion-side-menu-content>
 
         <ion-side-menu side="left">
-           <ion-header-bar class="bar-positive">
+           <ion-header-bar class="bar-balanced">
             <button class="button icon" ui-sref='new-list'>New</button>
             <h1 class="title">
                 All List
@@ -44,7 +54,8 @@
           <ion-content>
           <ion-list>
           <div ng-repeat="list in lists">
-            <ion-item ng-click="selectList(list,list.id)">{{list.title}}<button ng-click="deleteList(list)">Delete</button></ion-item>
+            <ion-item class="list-page-item" ng-click="selectList(list,list.id)">{{list.title}}
+            <button class="deletebutton" ng-click="deleteList(list)">X</button></ion-item>
           </div>
           </ion-list>
         </ion-content>
