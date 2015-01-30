@@ -231,7 +231,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.showConfirm = function(duration, distance, address) {
         var confirmPopup = $ionicPopup.confirm({
-          title: 'Your Itynerary',
+          title: 'Your Itinerary',
           template: 'Distance:'+distance+'Duration:'+duration+'Destination address:'+address
         });
         confirmPopup.then(function(res) {
@@ -309,10 +309,10 @@ Vendable.controller('VendableCtrl',
 
           // console.log($scope.activeList.items[1].price)
 
-          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
-              // $scope What thte hell is this
+              // $scope What the hell is this
               setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name, "supermarket")
             }
           $scope.stores = response
