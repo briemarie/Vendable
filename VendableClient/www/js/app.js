@@ -149,6 +149,7 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.addList=function(listName){
+        document.querySelector('#name-list').value=null;
         var listName=listName;
         if (listName){
           createList(listName);
@@ -409,7 +410,7 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.changeColor=function(){
-        $scope.activeColor = ColorWheel.shiftOne();
+        // $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
       $scope.activeColor;
@@ -424,14 +425,15 @@ Vendable.controller('VendableCtrl',
         }
       }
 
-      // $scope.total= $scope.activeList.total;
+      // $scope.total;
       $scope.calculate=function(){
           var list = $scope.activeList.items;
           $scope.activeList['total'] = 0;
           for (i in list){
-            $scope.activeList.total += Math.round(list[i].price*100)/100;
-            console.log($scope.activeList.total);
+            // console.log(parseFloat(list[i].price))
+            $scope.activeList.total += Math.round(parseFloat(list[i].price)*100)/100
           }
+          // $scope.activeList.total = $scope.activeList.total.toFixed(2)
         }
 }
 // ]

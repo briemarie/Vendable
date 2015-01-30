@@ -8,13 +8,14 @@
       <div id="mapG" data-tab-disable="true">
 
       </div>
-
-      <div class='list card'  ng-repeat="store in stores" >
+<ion-list>
+      <div ng-repeat="store in stores" >
         <a ui-sref="all_list" class="item item-icon-left" ng-click="setActiveStore(store, $event)" >
           <i class="icon ion-ios-cart-outline"></i>
           <h3>{{store.name}}</h3>
         </a>
       </div>
+      <ion-list>
       <div class='row' ng-click='closeModal()'>
         <div class="col">
           <a class="button button-block button-balanced" ui-sref="new-list">Create List</a>

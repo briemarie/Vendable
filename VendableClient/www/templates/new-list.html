@@ -17,7 +17,7 @@
       </form> -->
     <div id="new-list-container" >
       <form name="nameListForm">
-        <input class= "note note-box" type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
+        <input id='name-list' class= "note note-box" type="text" name="input" ng-model="listName" ng-pattern="word" required ng-trim="false">
         <button id="addButton" class= "button button-full button-balanced" ng-click="addList(listName)"  ui-sref='list'> Add List</button>
       </form>
     </div>

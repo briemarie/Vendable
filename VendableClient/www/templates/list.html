@@ -39,11 +39,11 @@
 
               <a href="#" class="item item-icon-left total-price">
                 <i class="icon ion-social-usd total-price"></i>
-                  <h3 class="total-price">Grocery Total: {{total}}</h3>
+                  <h3 class="total-price">Grocery Total: {{activeList.total}}</h3>
               </a>
 
             <button class="button button-block button-balanced" ng-click="openSearchModal()">Add Items</button>
-            <a class="button button-block button-balanced" ng-href={{activeStore.laln}} ng-click="openMap()">Directions to Store</a>
+            <a class="button button-block button-balanced" ng-click="openMap()">Directions to Store</a>
           </ion-content>
         </ion-side-menu-content>
 
