@@ -317,7 +317,7 @@ Vendable.controller('VendableCtrl',
           $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
-              // $scope What thte hell is this
+              // $scope What the hell is this
               setMarker(response[i].location.latitude, response[i].location.longitude, response[i].name, "supermarket")
             }
           $scope.stores = response
@@ -330,9 +330,17 @@ Vendable.controller('VendableCtrl',
         //     return $scope.activeList.store.name.split(/\W/)[0];
         //   }
         // }();
+        $scope.activeStore;
 
-        // $scope.activeStore;
-        
+
+        $scope.activeStore=function(){
+          // window.localStorage.clear()
+          if($scope.activeList){
+            return $scope.activeList.store.name.split(/\W/)[0];
+          }
+        }();
+
+
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
         //     el: '#panorama',

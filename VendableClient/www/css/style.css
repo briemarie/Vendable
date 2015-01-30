@@ -52,15 +52,14 @@
     position: absolute;
 }
 
-.home-menu-buttons{
-  width: 25%;
-  height: 10%;
+.home-menu-buttons {
+  width: 30%;
+  height: 50px;
   margin: 5%;
   background-color: transparent;
   border: 2px solid white;
   display: inline-block;
   border-radius: 5%;
-  font-size: 0.4em;
   color:white;
   font-size: 15px;
 }
@@ -70,11 +69,11 @@
   width: 100%;
 }
 
-/*.toggle-home{
+.toggle-home{
 
   top:70%;
 
-}*/
+}
 
 #mapG {
   height: 500px;
