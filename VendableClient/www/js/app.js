@@ -188,11 +188,12 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.setActiveStore = function(store,$event){
+        console.log(store)
         $scope.activeStore=store;
-        $scope.activeStore.name=$scope.activeList.store.name.split(/\W/)[0];;
-        console.log($scope.activeStore);
+        $scope.activeStore.name=store.name.toLowerCase().split(/\W/)[0];;
+        // console.log($scope.activeStore);
         $scope.activeStore.laln="https://www.google.com/maps/dir/@"+store.location.latitude+","+store.location.longitude
-        $scope.openPopover($event)
+        $scope.openPopover($event);
       }
 //-------------------------MAP----------------------------------------------------------------
       $ionicModal.fromTemplateUrl("templates/map_modal.html", {
@@ -225,6 +226,7 @@ Vendable.controller('VendableCtrl',
 
        $scope.getDirections = function(mode){
           var store = $scope.activeStore
+          console.log('http://192.168.0.86:3000/directions/'+$scope.initLat+','+$scope.initLng+'&'+store.location.latitude+','+store.location.longitude+'&'+mode)
           $http.get('http://192.168.0.86:3000/directions/'+$scope.initLat+','+$scope.initLng+'&'+store.location.latitude+','+store.location.longitude+'&'+mode).success(function(response){
             console.log(response.duration.text, response.distance.text, response.end)
             $scope.showConfirm(response.duration.text, response.distance.text, response.end)
@@ -232,7 +234,7 @@ Vendable.controller('VendableCtrl',
 
       $scope.showConfirm = function(duration, distance, address) {
         var confirmPopup = $ionicPopup.confirm({
-          title: 'Your Itynerary',
+          title: 'Your Itinerary',
           template: 'Distance:'+distance+'Duration:'+duration+'Destination address:'+address
         });
         confirmPopup.then(function(res) {
@@ -321,23 +323,13 @@ Vendable.controller('VendableCtrl',
          })
         }
 
-
-
         // $scope.activeStore=function(){
         //   if($scope.activeList){
         //     return $scope.activeList.store.name.split(/\W/)[0];
         //   }
         // }();
 
-        // $scope.activeStore=function(){
-        //   if($scope.activeList){
-        //     return $scope.activeList.store.name.split(/\W/)[0];
-        //   }
-        // }();
-
-
-
-        // $scope.activeStore=$scope.activeList.store
+        // $scope.activeStore;
         
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({

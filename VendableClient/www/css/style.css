@@ -54,7 +54,7 @@
 
 .home-menu-buttons{
   width: 25%;
-  height: 5%;
+  height: 10%;
   margin: 5%;
   background-color: transparent;
   border: 2px solid white;
@@ -62,11 +62,11 @@
   border-radius: 5%;
   font-size: 0.4em;
   color:white;
-  font-size: 15px
+  font-size: 15px;
 }
 
 .button-table{
-  padding-top: 115%;
+  padding-top: 100%;
   width: 100%;
 }
 
@@ -126,16 +126,16 @@
 }
 
 .homebutton{
-  background-color: #8BE8AC;
+  background-color: black;
   border-radius: 49%;
 }
 
-.deletebutton {
+/*.deletebutton {
   background-color: #E85542;
   border: 10px;
   border-radius: 49%;
   float: right;
-}
+}*/
 
 .list-page-checkbox {
 /*  background-color: #00FF00;*/
