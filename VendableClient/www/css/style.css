@@ -130,15 +130,15 @@
   border-radius: 49%;
 }
 
-/*.deletebutton {
+.deletebutton {
   background-color: #E85542;
   border: 10px;
   border-radius: 49%;
   float: right;
-}*/
+}
 
 .list-page-checkbox {
-/*  background-color: #00FF00;*/
+  /*background-color: #00FF00;*/
 
   background-color: #A2BCFF;
 
@@ -229,7 +229,7 @@
 .list-page-item {
   border: 0px;
   margin: 5px;
-  background-color: #A2BCFF;
+  background-color: #E8E5B9;
 }
 
 .with-padding {

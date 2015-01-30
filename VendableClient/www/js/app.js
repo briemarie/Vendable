@@ -48,7 +48,7 @@ Vendable.factory('searchItemsService',function($http){
       return{
             scan:function(keyWord, store){
 
-            // return $http.get('hhttps://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
+            // return $http.get('https://lit-ravine-6515.herokuapp.com/'+keyWord+'&'+store)
 
               console.log("here")
             return $http.get('http://192.168.0.86:3000/'+keyWord+'&'+store)
@@ -158,6 +158,8 @@ Vendable.controller('VendableCtrl',
       $scope.selectList=function(list){
         $scope.activeList=list;
         Lists.setLastActiveList(list.id);
+        $scope.activeStore=$scope.activeList.store;
+        $scope.calculate();
         $ionicSideMenuDelegate.toggleLeft(false);
       }
 
@@ -312,7 +314,7 @@ Vendable.controller('VendableCtrl',
 
           // console.log($scope.activeList.items[1].price)
 
-          $http.get('https://lit-ravine-6515.herokuapp.com/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
+          $http.get('http://192.168.0.86:3000/yelp/'+position.coords.latitude+','+position.coords.longitude).success(function(response){
             length = response.length
               for(var i = 0; i< length; i++){
               // $scope What thte hell is this
@@ -354,7 +356,8 @@ Vendable.controller('VendableCtrl',
 
 //-------------------------------------------------
       $scope.openSearchModal = function(){
-        $scope.modalSearch.show()
+        $scope.modalSearch.show();
+        $scope.activeStore=$scope.activeList.store
       };
 
       $scope.closeSearchModal = function(){
@@ -366,9 +369,9 @@ Vendable.controller('VendableCtrl',
       $scope.results=[];
 
       $scope.search=function(){
-        console.log($scope.activeStore.name)
+        $scope.activeStore=$scope.activeList.store;
         if ($scope.data.keyWord.length >= 3){
-        searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
+          searchItemsService.scan($scope.data.keyWord,$scope.activeStore.name).then(function(response){
           $scope.results=response.slice(0,20)
         });}
         // var data = angular.fromJson(window.localStorage['colors'])
@@ -422,7 +425,6 @@ Vendable.controller('VendableCtrl',
             console.log($scope.activeList.total);
           }
         }
-        console.log($scope.activeList);
 }
 // ]
 );
