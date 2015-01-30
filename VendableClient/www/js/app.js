@@ -304,7 +304,7 @@ Vendable.controller('VendableCtrl',
             }
           }
 
-          setMarker($scope.initLat, $scope.initLng, 'Fuck my life', 'user')
+          setMarker($scope.initLat, $scope.initLng, 'I am hungry!!', 'user')
 
 
           // console.log($scope.activeList.items[1].price)
@@ -331,7 +331,8 @@ Vendable.controller('VendableCtrl',
         }();
 
 
-        $scope.activeStore=$scope.activeList.store
+        // $scope.activeStore=$scope.activeList.store
+
 
         // $scope.showPanaroma = function(la, ln){
         //   var panorama = GMaps.createPanorama({
