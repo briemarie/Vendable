@@ -337,7 +337,7 @@ Vendable.controller('VendableCtrl',
         $scope.activeStore=function(){
           // window.localStorage.clear()
           if($scope.activeList){
-            return $scope.activeList.store.name.split(/\W/)[0];
+            // return $scope.activeList.store.name.split(/\W/)[0];
           }
         }();
 
@@ -410,7 +410,7 @@ Vendable.controller('VendableCtrl',
 
 
       $scope.changeColor=function(){
-        // $scope.activeColor = ColorWheel.shiftOne();
+        $scope.activeColor = ColorWheel.shiftOne();
         return 2000;
       }
       $scope.activeColor;
@@ -431,9 +431,9 @@ Vendable.controller('VendableCtrl',
           $scope.activeList['total'] = 0;
           for (i in list){
             // console.log(parseFloat(list[i].price))
-            $scope.activeList.total += Math.round(parseFloat(list[i].price)*100)/100
+            $scope.activeList.total += parseFloat(list[i].price);
           }
-          // $scope.activeList.total = $scope.activeList.total.toFixed(2)
+          $scope.activeList.total = $scope.activeList.total.toFixed(2);
         }
 }
 // ]
