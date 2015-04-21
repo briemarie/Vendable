@@ -1,2 +1,6 @@
 # Vendable
-Here it is
+The app that simplifies the grocery shopping experience for users in big cities. 
+
+Have you ever wondered how much a grocery shopping trip was going to cost you? Have you ever been in a new city and didn't know which grocery stores were near you, or perhaps you knew, but didn't know which store was going to cost you less to shop at? Let Vendable take the guess work out of these questions. Based on your geolocation, Vendable selects big chain grocery stores within a 5 mile radius of your location. As a user, you are then able to select a store, and go straight to accessing massive amounts of data from that store. You can create a shopping list, and as you type in items, all matching items found in the store of your choice can be selected and added to your list, complete with the brand, size, and price. Your list will automatically update a grand total price, so if you so desired, you could then go back, select another store, and compare how much the trip will cost you, or let you see that one store does not have needed items, thus helping you decide which store to go to. When you are satisfied with your list, head over to the navigate page, and using the Google Maps API, route your directions to the store. 
+
+*Vendable was created with a Node.js back-end, a Mongo database of over 100 thousand items found at various grocery chains, an AngularJS front-end, and a mobile iOS build using Ionic. 
